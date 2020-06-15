@@ -35,7 +35,7 @@ const rows = [
   createData('CP4', 'Raffles Hall', 'Public', 0),
   createData('CP2C', 'DSI', 'Public', 0),
   createData('CP17 (Staff Season)', 'Computer Centre', 'Staff Only', 0),
-  createData('CP3', 'University Cultural Centre/Yong Siew Toh Consevatory of Music', 'Public', 0),
+  createData('CP3', 'University Cultural Centre/Yong Siew Toh Conservatory of Music', 'Public', 0),
   createData('CP3A', 'Lee Kong Chian Natural History Museum', 'Public', 0),
   createData('CP13 (Staff Season)', 'COM1, School of Computing', 'Staff Only', 0),
   createData('CP14 (Staff Season)', 'Shaw Foundation Building (AS7), Faculty of Arts & Social Sciences', 'Staff Only', 0),
@@ -210,11 +210,11 @@ EnhancedTableToolbar.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    opacity: 0.5
   },
   paper: {
     width: '100%',
     marginBottom: theme.spacing(2),
+    opacity: 1
   },
   table: {
     minWidth: 750,
@@ -340,8 +340,8 @@ export default function EnhancedTable() {
                         {row.Carpark}
                       </TableCell>
                       <TableCell align="left">{row.Location}</TableCell>
-                      <TableCell align="left">{row.Type}</TableCell>
-                      <TableCell align="left">{row.LotsAvailable}</TableCell>
+                      <TableCell align="left">{row.Type}</TableCell>                  
+                      <TableCell align="centre">{row.LotsAvailable}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -354,7 +354,7 @@ export default function EnhancedTable() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[3, 5, 7]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

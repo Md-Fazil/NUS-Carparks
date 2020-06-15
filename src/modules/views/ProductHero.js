@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '../components/Table'
 import ProductHeroLayout from './ProductHeroLayout';
+import backgroundi from './images/map1.png'
 
 const backgroundImage =
   'https://images.unsplash.com/photo-1534854638093-bada1813ca19?auto=format&fit=crop&w=1400&q=80';
 
 const styles = (theme) => ({
   background: {
-    backgroundImage: `url(${backgroundImage})`,
+    backgroundImage: `url(${backgroundi})`,
     backgroundColor: '#7fc7d9', // Average color of the background image.
     backgroundPosition: 'center',
   },
