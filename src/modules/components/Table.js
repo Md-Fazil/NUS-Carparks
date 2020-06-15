@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -20,17 +21,18 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import axios from 'axios';
 
 function createData(Carpark, Location, Type, LotsAvailable) {
   return {Carpark, Location, Type, LotsAvailable};
 }
 
 const rows = [
-  createData('CP6 (Staff Season)', 'S7 & S13, Faculty of Science', 'Staff Only', 0),
-  createData('CP7 (Staff Season)', 'S10 & S14, Faculty of Science', 'Staff Only', 0),
-  createData('CP8 (Staff Season)', 'S16, Faculty of Science', 'Staff Only', 0),
-  createData('CP9A (Staff Season)', 'MD11, Yong Loo Lin School of Medicine', 'Staff Only', 0),
-  createData('CP10C (Staff Season)', 'Centre of Life Sciences', 'Staff Only', 0),
+  createData('CP6 (Staff Season)', 'S7 & S13, Faculty of Science', 'Staff Only', 'Loading..'),
+  createData('CP7 (Staff Season)', 'S10 & S14, Faculty of Science', 'Staff Only', 'Loading..'),
+  createData('CP8 (Staff Season)', 'S16, Faculty of Science', 'Staff Only', 'Loading..'),
+  createData('CP9A (Staff Season)', 'MD11, Yong Loo Lin School of Medicine', 'Staff Only', 'Loading..'),
+  createData('CP10C (Staff Season)', 'Centre of Life Sciences', 'Staff Only', 'Loading..'),
   createData('CP1/2/2A/2B', 'Faculty of Engineering', 'Public', 0),
   createData('CP4', 'Raffles Hall', 'Public', 0),
   createData('CP2C', 'DSI', 'Public', 0),
@@ -59,6 +61,12 @@ const rows = [
   createData('CP10 (Staff Season)', 'S17, Faculty of Science', 'Staff Only', 0),
   createData('CP10V', 'S17, Faculty of Science', 'Public', 0),
 ];
+
+function setLive(array){
+  for(let i = 0; i < rows.length; i++){
+    rows[i].LotsAvailable = array[i].lots;
+  }
+}
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -240,6 +248,13 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [count, setCount] = React.useState(0);
+
+  useEffect(() => {
+    axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
+        {setLive(response.data.carpark); setCount(count + 1)})
+        .catch(err => console.log(err))
+  }); 
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -340,8 +355,8 @@ export default function EnhancedTable() {
                         {row.Carpark}
                       </TableCell>
                       <TableCell align="left">{row.Location}</TableCell>
-                      <TableCell align="left">{row.Type}</TableCell>                  
-                      <TableCell align="centre">{row.LotsAvailable}</TableCell>
+                      <TableCell align="left">{row.Type}</TableCell>                
+                      <TableCell align="left">{row.LotsAvailable}</TableCell>
                     </TableRow>
                   );
                 })}
