@@ -21,7 +21,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import axios from 'axios';
+//import axios from 'axios';
+import SearchList from './SearchList'
 
 function createData(Carpark, Location, Type, LotsAvailable) {
   return {Carpark, Location, Type, LotsAvailable};
@@ -194,6 +195,8 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       )}
 
+      {<SearchList />}
+
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton aria-label="delete">
@@ -222,7 +225,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     width: '100%',
     marginBottom: theme.spacing(2),
-    opacity: 1
+    opacity: 0.5
   },
   table: {
     minWidth: 750,
@@ -250,11 +253,11 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [count, setCount] = React.useState(0);
 
-  useEffect(() => {
+  /*useEffect(() => {
     axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
         {setLive(response.data.carpark); setCount(count + 1)})
         .catch(err => console.log(err))
-  }); 
+  }); */
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
