@@ -21,8 +21,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Col from 'react-bootstrap/Col'
+import { TextField } from '@material-ui/core';
 //import axios from 'axios';
-import SearchList from './SearchList'
+
 
 function createData(Carpark, Location, Type, LotsAvailable) {
   return {Carpark, Location, Type, LotsAvailable};
@@ -62,6 +66,8 @@ const rows = [
   createData('CP10 (Staff Season)', 'S17, Faculty of Science', 'Staff Only', 0),
   createData('CP10V', 'S17, Faculty of Science', 'Public', 0),
 ];
+
+var temp = rows;
 
 function setLive(array){
   for(let i = 0; i < rows.length; i++){
@@ -153,6 +159,8 @@ EnhancedTableHead.propTypes = {
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
+  search: PropTypes.string.isRequired,
+  table: temp,
 };
 
 const useToolbarStyles = makeStyles((theme) => ({
@@ -177,7 +185,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected,} = props;
 
   return (
     <Toolbar
@@ -195,7 +203,21 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       )}
 
-      {<SearchList />}
+      {<div>
+        <Form.Group controlId="exampleForm.ControlSelect1">
+          <Form.Label>Where to?</Form.Label>
+          <Form.Control as="select">
+            <option>School of Computing</option>
+            <option>Faculty of Engineering</option>
+            <option>Faculty of Science</option>
+            <option>U-town</option>
+            <option>School of Business</option>
+          </Form.Control>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Go!
+        </Button>
+      </div>}
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
@@ -221,6 +243,7 @@ EnhancedTableToolbar.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+
   },
   paper: {
     width: '100%',
@@ -246,12 +269,14 @@ const useStyles = makeStyles((theme) => ({
 export default function EnhancedTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('LotsAvailable');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [count, setCount] = React.useState(0);
+  const [search, setSearch] = React.useState("");
+  const [table, setTable] = React.useState(temp);
 
   /*useEffect(() => {
     axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
@@ -267,7 +292,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.Carpark);
       setSelected(newSelecteds);
       return;
     }
@@ -307,6 +332,11 @@ export default function EnhancedTable() {
     setDense(event.target.checked);
   };
 
+  function filtering(string) {
+    const tableResult = rows.filter(row => row.Location.toLowerCase().includes(string));
+    setTable(tableResult);
+  }
+
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -315,9 +345,21 @@ export default function EnhancedTable() {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected.length} />
+        <TextField 
+        id="outlined-basic"
+        label="Search Carpark"
+        variant= 'outlined'
+        color="blue"
+        value={search}
+        onChange={e => {
+          setSearch(e.target.value.toLowerCase());
+          filtering(e.target.value);
+        }}
+        />
+
         <TableContainer>
           <Table
-            className={classes.table}
+            className={classes.rows}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
@@ -332,7 +374,7 @@ export default function EnhancedTable() {
               rowCount={rows.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(table, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.Carpark);
