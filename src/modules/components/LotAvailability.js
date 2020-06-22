@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios';
+
 
 class LotAvailability extends Component {
     constructor(props) {
@@ -10,11 +10,11 @@ class LotAvailability extends Component {
         }
     }
     
-    componentDidMount(){
-        axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
-        {this.setState({availability: response.data.carpark})})
-        .catch(err => console.log(err))
-    }
+   // componentDidMount(){
+     //   axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
+       // {this.setState({availability: response.data.carpark})})
+        //.catch(err => console.log(err))
+    //}
 
     Helper = (array) => {
         if(array.length <= 1){

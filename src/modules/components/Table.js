@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -33,11 +33,11 @@ function createData(Carpark, Location, Type, LotsAvailable) {
 }
 
 const rows = [
-  createData('CP6 (Staff Season)', 'S7 & S13, Faculty of Science', 'Staff Only', 'Loading..'),
-  createData('CP7 (Staff Season)', 'S10 & S14, Faculty of Science', 'Staff Only', 'Loading..'),
-  createData('CP8 (Staff Season)', 'S16, Faculty of Science', 'Staff Only', 'Loading..'),
-  createData('CP9A (Staff Season)', 'MD11, Yong Loo Lin School of Medicine', 'Staff Only', 'Loading..'),
-  createData('CP10C (Staff Season)', 'Centre of Life Sciences', 'Staff Only', 'Loading..'),
+  createData('CP6 (Staff Season)', 'S7 & S13, Faculty of Science', 'Staff Only', 0),
+  createData('CP7 (Staff Season)', 'S10 & S14, Faculty of Science', 'Staff Only', 0),
+  createData('CP8 (Staff Season)', 'S16, Faculty of Science', 'Staff Only', 0),
+  createData('CP9A (Staff Season)', 'MD11, Yong Loo Lin School of Medicine', 'Staff Only', 0),
+  createData('CP10C (Staff Season)', 'Centre of Life Sciences', 'Staff Only', 0),
   createData('CP1/2/2A/2B', 'Faculty of Engineering', 'Public', 0),
   createData('CP4', 'Raffles Hall', 'Public', 0),
   createData('CP2C', 'DSI', 'Public', 0),
@@ -67,7 +67,6 @@ const rows = [
   createData('CP10V', 'S17, Faculty of Science', 'Public', 0),
 ];
 
-var temp = rows;
 
 function setLive(array){
   for(let i = 0; i < rows.length; i++){
@@ -268,6 +267,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EnhancedTable() {
   const classes = useStyles();
+
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('LotsAvailable');
   const [selected, setSelected] = React.useState([]);
@@ -283,6 +283,9 @@ export default function EnhancedTable() {
         {setLive(response.data.carpark); setCount(count + 1)})
         .catch(err => console.log(err))
   }); */
+
+
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
