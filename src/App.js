@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
-import Home from "./Home.js"
+import GMap from './modules/components/GMap';
+import Home from './Home.js';
+
 
 function App() {
   return (
