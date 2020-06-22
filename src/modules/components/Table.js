@@ -28,6 +28,7 @@ import { TextField } from '@material-ui/core';
 //import axios from 'axios';
 
 
+
 function createData(Carpark, Location, Type, LotsAvailable) {
   return {Carpark, Location, Type, LotsAvailable};
 }
@@ -67,6 +68,7 @@ const rows = [
   createData('CP10V', 'S17, Faculty of Science', 'Public', 0),
 ];
 
+var temp = rows;
 
 function setLive(array){
   for(let i = 0; i < rows.length; i++){
