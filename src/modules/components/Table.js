@@ -349,7 +349,6 @@ export default function EnhancedTable() {
         id="outlined-basic"
         label="Search Carpark"
         variant= 'outlined'
-        color="blue"
         value={search}
         onChange={e => {
           setSearch(e.target.value.toLowerCase());
