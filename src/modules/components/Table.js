@@ -244,12 +244,14 @@ EnhancedTableToolbar.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    color: "green",
 
   },
   paper: {
     width: '100%',
     marginBottom: theme.spacing(2),
-    opacity: 0.5
+    opacity: 0.5,
+    backgroundColor: "green",
   },
   table: {
     minWidth: 750,
@@ -265,6 +267,9 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  searchfield: {
+    textAlign: 'center'
+  }
 }));
 
 export default function EnhancedTable() {
@@ -348,6 +353,7 @@ export default function EnhancedTable() {
       <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TextField 
+        className={classes.searchfield}
         id="outlined-basic"
         label="Search Carpark"
         variant= 'outlined'
