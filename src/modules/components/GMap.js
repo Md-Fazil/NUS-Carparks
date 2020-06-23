@@ -39,7 +39,9 @@ const data = {"carpark":[{"lots":26,"longitude":103.778961,"latitude":1.296788,"
 
 const mapStyles = {
   width: '100%',
-  height: '100%'
+  height: '50%',
+  justifyContent: "center",
+  align: "center"
 };
 
 const icon = { url: require("./image/park.svg"), scaledSize: { width: 32, height: 32 } };
@@ -109,7 +111,6 @@ export class MapContainer extends Component {
     )
   }
 }
-//<Actual name = {this.state.selectedPlace.name}/>
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyBrgo3k6ArVPdNxrWTGPQtorFPoJcZjDaQ'

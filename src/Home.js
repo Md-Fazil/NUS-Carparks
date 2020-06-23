@@ -9,18 +9,23 @@ import ProductValues from './modules/views/ProductValues';
 import ProductHowItWorks from './modules/views/ProductHowItWorks';
 import ProductCTA from './modules/views/ProductCTA';
 import AppAppBar from './modules/views/AppAppBar';
+import GMap from './modules/components/GMap';
+import TestBar from './modules/TestBar';
+
 
 function Index() {
   return (
-    <React.Fragment>
-      <AppAppBar />
+      <React.Fragment>
+      <AppAppBar/>
       <ProductHero />
+      <GMap/>
       <ProductValues />
       <ProductCategories />
       <ProductHowItWorks />
       <ProductCTA />
       <ProductSmokingHero />
       <AppFooter />
+     
     </React.Fragment>
   );
 }

@@ -5,6 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import AppBar from '../components/AppBar';
 import Toolbar, { styles as toolbarStyles } from '../components/Toolbar';
+import Navbar from '../components/navbar/Navbar';
+
 
 const styles = (theme) => ({
   title: {
@@ -15,7 +17,8 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
   },
   left: {
-    flex: 1,
+    flex: 1
+    
   },
   leftLinkActive: {
     color: theme.palette.common.white,
@@ -31,7 +34,7 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(3),
   },
   linkSecondary: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.common.white,
   },
 });
 
@@ -40,8 +43,26 @@ function AppAppBar(props) {
 
   return (
     <div>
+    <div>
+    <div>
       <AppBar position="fixed">
-        <Toolbar className={classes.toolbar}>
+      <Navbar className = {classes.toolbar}/>  
+      </AppBar>
+      <div className={classes.placeholder} />
+    </div>
+    </div>
+    </div>
+  );
+}
+
+AppAppBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(AppAppBar);
+
+
+/*<Toolbar className={classes.toolbar}>
           <div className={classes.left} />
           <Link
             variant="h6"
@@ -57,10 +78,10 @@ function AppAppBar(props) {
               color="inherit"
               variant="h6"
               underline="none"
-              className={classes.rightLink}
+              className={classes.rightLink, classes.linkSecondary}
               href="/premium-themes/onepirate/sign-in/"
             >
-              {'Sign In'}
+              {'Availability'}
             </Link>
             <Link
               variant="h6"
@@ -68,18 +89,26 @@ function AppAppBar(props) {
               className={clsx(classes.rightLink, classes.linkSecondary)}
               href="/premium-themes/onepirate/sign-up/"
             >
-              {'Sign Up'}
+              {'Locations'}
             </Link>
+            <Link
+              variant="h6"
+              underline="none"
+              className={clsx(classes.rightLink, classes.linkSecondary)}
+              href="/premium-themes/onepirate/sign-up/"
+            >
+              {'Rates'}
+            </Link>
+            <Link
+              variant="h6"
+              underline="none"
+              className={clsx(classes.rightLink, classes.linkSecondary)}
+              href="/premium-themes/onepirate/sign-up/"
+            >
+              {'Contact Us'}
+            </Link>
+
+
           </div>
         </Toolbar>
-      </AppBar>
-      <div className={classes.placeholder} />
-    </div>
-  );
-}
-
-AppAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(AppAppBar);
+        */
