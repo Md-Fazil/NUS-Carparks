@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '../components/Typography';
-import GMap from '../components/GMap';
+//import GMap from '../components/GMap';
 
 const styles = (theme) => ({
   root: {
