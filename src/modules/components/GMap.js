@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import CurrentLocation from './CurrentLocation.js';
 import CPInfo from './CPInfo.js';
+import { StylesProvider } from '@material-ui/core';
 
 const data = {"carpark":[{"lots":26,"longitude":103.778961,"latitude":1.296788,"caption":"S7 & S13, Faculty of Science","name":"CP6","id":101,"type":"(Staff only)"},
 {"lots":18,"longitude":103.779851,"latitude":1.297239,"caption":"S10 & S14, Faculty of Science","name":"CP7","id":104,"type":"(Staff only)"},
@@ -38,10 +39,12 @@ const data = {"carpark":[{"lots":26,"longitude":103.778961,"latitude":1.296788,"
 {"lots":41,"longitude":103.782244,"latitude":1.297083,"caption":"S17, Faculty of Science","name":"CP10V","id":1802,"type":""}]}
 
 const mapStyles = {
-  width: '100%',
+  width: '95%',
   height: '50%',
   justifyContent: "center",
-  align: "center"
+  align: "center",
+  overflow: 'hidden',
+  
 };
 
 const icon = { url: require("./image/park.svg"), scaledSize: { width: 32, height: 32 } };
@@ -79,9 +82,14 @@ export class MapContainer extends Component {
   
   render() {
     return (
+      <div style = {{
+        width: '100%',
+        maxWidth: 1900,
+        overflow: 'hidden'
+      }}>
       <Map
           google = {this.props.google}
-          zoom = {16}
+          zoom = {15}
           style = {mapStyles}
           initialCenter = {{
                             lat: 1.297887,
@@ -108,6 +116,7 @@ export class MapContainer extends Component {
         <CPInfo name = {this.state.selectedPlace.name}/>  
         </InfoWindow>          
       </Map>    
+      </div>
     )
   }
 }

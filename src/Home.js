@@ -9,25 +9,26 @@ import ProductValues from './modules/views/ProductValues';
 import ProductHowItWorks from './modules/views/ProductHowItWorks';
 import ProductCTA from './modules/views/ProductCTA';
 import AppAppBar from './modules/views/AppAppBar';
-import GMap from './modules/components/GMap';
-import TestBar from './modules/TestBar';
+import ParkingInfo from './modules/components/ParkingInfo';
 
 
 function Index() {
-  return (
-      <React.Fragment>
-      <AppAppBar/>
-      <ProductHero />
-      <GMap/>
-      <ProductValues />
-      <ProductCategories />
-      <ProductHowItWorks />
-      <ProductCTA />
-      <ProductSmokingHero />
-      <AppFooter />
-     
+  return (     
+    <React.Fragment>
+    <AppAppBar/>
+    <ProductHero />
+    <ProductValues />
+    <ProductCategories />
+    <ProductHowItWorks />
+    <ProductCTA />
+    <ProductSmokingHero />
+    <AppFooter /> 
     </React.Fragment>
+
   );
 }
 
 export default withRoot(Index);
+
+
+  
