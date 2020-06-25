@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { lighten, makeStyles } from '@material-ui/core/styles';
+import { lighten, makeStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -26,6 +26,8 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
+import Icon from '@material-ui/core/Icon'
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 
 
@@ -105,7 +107,7 @@ function stableSort(array, comparator) {
 const headCells = [
   { id: 'Carpark', numeric: false, disablePadding: true, label: 'Carpark' },
   { id: 'Location', numeric: false, disablePadding: false, label: 'Location' },
-  { id: 'Type', numeric: true, disablePadding: false, label: 'Carpark Type' },
+  { id: 'Type', numeric: false, disablePadding: false, label: 'Carpark Type' },
   { id: 'LotsAvailable', numeric: true, disablePadding: false, label: 'Lots Available' },
 ];
 
@@ -118,27 +120,21 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
-          />
-        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
+            className={classes.header}
             key={headCell.id}
             align={"left"}
             padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id? order : false}
           >
+            {headCell.label}
             <TableSortLabel
-              active={orderBy === headCell.id}
+              className={classes.icon}
+              active={true}
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
-              {headCell.label}
               {orderBy === headCell.id ? (
                 <span className={classes.visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
@@ -181,7 +177,14 @@ const useToolbarStyles = makeStyles((theme) => ({
         },
   title: {
     flex: '1 1 100%',
+    color: "#48E822",
+    fontSize: 32
   },
+  where: {
+    color: "#48E822",
+    fontSize: 18,
+
+  }
 }));
 
 const EnhancedTableToolbar = (props) => {
@@ -194,19 +197,12 @@ const EnhancedTableToolbar = (props) => {
         [classes.highlight]: numSelected > 0,
       })}
     >
-      {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Carparks in NUS
-        </Typography>
-      )}
-
-      {<div>
+      <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+        Carparks in NUS
+      </Typography>
+      {<div className={classes.where}>
         <Form.Group controlId="exampleForm.ControlSelect1">
-          <Form.Label>Where to?</Form.Label>
+          <Form.Label><b>Where to?</b></Form.Label>
           <Form.Control as="select">
             <option>School of Computing</option>
             <option>Faculty of Engineering</option>
@@ -220,19 +216,6 @@ const EnhancedTableToolbar = (props) => {
         </Button>
       </div>}
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
     </Toolbar>
   );
 };
@@ -244,12 +227,12 @@ EnhancedTableToolbar.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-
   },
   paper: {
     width: '100%',
-    marginBottom: theme.spacing(2),
-    opacity: 0.5
+    marginBottom: theme.spacing(1),
+    opacity: 1,
+    backgroundColor: "black",
   },
   table: {
     minWidth: 750,
@@ -265,16 +248,61 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  content: {
+    color: "#48E822",
+    fontSize: 16,
+    align: "left"
+  },
+  input: {
+    color: "white",
+  },
+  icon: {
+    opacity: 1,
+    fill: "green"
+  },
+  header: {
+    color: "orange",
+    fontSize: 16
+  },
+  lowContent: {
+    color: "red",
+    fontSize: 16,
+    align: "left"
+  }
+
 }));
+
+const CssTextField = withStyles({
+  root: {
+    "& label.Mui-focused": {
+      color: "green"
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "green"
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "red",
+        color: "blue"
+      },
+      "&:hover fieldset": {
+        borderColor: "yellow"
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "red"
+      }
+    }
+  }
+})(TextField);
 
 export default function EnhancedTable() {
   const classes = useStyles();
 
-  const [order, setOrder] = React.useState('asc');
+  const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState('LotsAvailable');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [count, setCount] = React.useState(0);
   const [search, setSearch] = React.useState("");
@@ -347,25 +375,24 @@ export default function EnhancedTable() {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <TextField 
-        id="outlined-basic"
-        label="Search Carpark"
-        variant= 'outlined'
+        <CssTextField
+        inputProps={{className: classes.input}}
+        InputLabelProps={{className: classes.input}}
+        label="Search Carpark Location"
+        variant="outlined"
+        id="custom-css-outlined-input"
         value={search}
         onChange={e => {
           setSearch(e.target.value.toLowerCase());
           filtering(e.target.value);
         }}
         />
-        <p>
-          Date : 13/33/22
-          Time: 08:00:00
-        </p>
         <TableContainer>
           <Table
-            className={classes.rows}
+            className={classes.table}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
+
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -386,6 +413,7 @@ export default function EnhancedTable() {
 
                   return (
                     <TableRow
+                      className={classes.table}
                       hover
                       onClick={(event) => handleClick(event, row.Carpark)}
                       role="checkbox"
@@ -394,18 +422,12 @@ export default function EnhancedTable() {
                       key={row.Carpark}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
+                      <TableCell className={classes.content} component="th" id={labelId} scope="row" padding="none">
+                        <b>{row.Carpark}</b>
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.Carpark}
-                      </TableCell>
-                      <TableCell align="left">{row.Location}</TableCell>
-                      <TableCell align="left">{row.Type}</TableCell>                
-                      <TableCell align="left">{row.LotsAvailable}</TableCell>
+                      <TableCell className={classes.content}><b>{row.Location}</b></TableCell>
+                      <TableCell className={classes.content}><b>{row.Type}</b></TableCell>                
+                      <TableCell className={rows.LotsAvailable<50? classes.content: classes.lowContent}><b>{row.LotsAvailable}</b></TableCell>
                     </TableRow>
                   );
                 })}
@@ -418,7 +440,8 @@ export default function EnhancedTable() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[3, 5, 7]}
+          className={classes.content}
+          rowsPerPageOptions={[3, 5]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
