@@ -124,7 +124,7 @@ function EnhancedTableHead(props) {
           <TableCell
             className={classes.header}
             key={headCell.id}
-            align={"left"}
+            align={"center"}
             padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id? order : false}
           >
@@ -177,11 +177,11 @@ const useToolbarStyles = makeStyles((theme) => ({
         },
   title: {
     flex: '1 1 100%',
-    color: "#48E822",
+    color: "#013D7C",
     fontSize: 32
   },
   where: {
-    color: "#48E822",
+    color: "#013D7C",
     fontSize: 18,
 
   }
@@ -193,9 +193,7 @@ const EnhancedTableToolbar = (props) => {
 
   return (
     <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
+      className={classes.root}
     >
       <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
         Carparks in NUS
@@ -232,10 +230,11 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginBottom: theme.spacing(1),
     opacity: 1,
-    backgroundColor: "black",
+    backgroundColor: "white",
   },
   table: {
     minWidth: 750,
+    
   },
   visuallyHidden: {
     border: 0,
@@ -249,25 +248,26 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
   content: {
-    color: "#48E822",
+    color: "#013D7C",
     fontSize: 16,
-    align: "left"
   },
   input: {
-    color: "white",
+    color: "#013D7C",
   },
   icon: {
     opacity: 1,
-    fill: "green"
   },
   header: {
-    color: "orange",
+    color: "#013D7C",
     fontSize: 16
   },
   lowContent: {
     color: "red",
     fontSize: 16,
-    align: "left"
+  },
+  highContent: {
+    color: "#33F31B",
+    fontSize: 16,
   }
 
 }));
@@ -275,21 +275,21 @@ const useStyles = makeStyles((theme) => ({
 const CssTextField = withStyles({
   root: {
     "& label.Mui-focused": {
-      color: "green"
+      color: "black"
     },
     "& .MuiInput-underline:after": {
       borderBottomColor: "green"
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "red",
+        borderColor: "orange",
         color: "blue"
       },
       "&:hover fieldset": {
-        borderColor: "yellow"
+        borderColor: "orange"
       },
       "&.Mui-focused fieldset": {
-        borderColor: "red"
+        borderColor: "orange"
       }
     }
   }
@@ -312,7 +312,7 @@ export default function EnhancedTable() {
     axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
         {setLive(response.data.carpark); setCount(count + 1)})
         .catch(err => console.log(err))
-  }); */
+  });*/
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -385,8 +385,7 @@ export default function EnhancedTable() {
         onChange={e => {
           setSearch(e.target.value.toLowerCase());
           filtering(e.target.value);
-        }}
-        />
+        }}/>
         <TableContainer>
           <Table
             className={classes.table}
@@ -422,12 +421,13 @@ export default function EnhancedTable() {
                       key={row.Carpark}
                       selected={isItemSelected}
                     >
-                      <TableCell className={classes.content} component="th" id={labelId} scope="row" padding="none">
+                      <TableCell className={classes.content} component="th" id={labelId} scope="row" padding="none" align="center">
                         <b>{row.Carpark}</b>
                       </TableCell>
-                      <TableCell className={classes.content}><b>{row.Location}</b></TableCell>
-                      <TableCell className={classes.content}><b>{row.Type}</b></TableCell>                
-                      <TableCell className={rows.LotsAvailable<50? classes.content: classes.lowContent}><b>{row.LotsAvailable}</b></TableCell>
+                      <TableCell className={classes.content} align="center"><b>{row.Location}</b></TableCell>
+                      <TableCell className={classes.content} align="center"><b>{row.Type}</b></TableCell>                
+                      <TableCell className={row.LotsAvailable < 50 ? classes.lowContent : classes.highContent} align= "center">
+                        <b>{row.LotsAvailable}</b></TableCell>
                     </TableRow>
                   );
                 })}
