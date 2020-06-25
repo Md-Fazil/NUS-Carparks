@@ -26,6 +26,8 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
+import Icon from '@material-ui/core/Icon'
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 
 
@@ -120,18 +122,19 @@ function EnhancedTableHead(props) {
       <TableRow>
         {headCells.map((headCell) => (
           <TableCell
-            className={classes.content}
+            className={classes.header}
             key={headCell.id}
             align={"left"}
             padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id? order : false}
           >
+            {headCell.label}
             <TableSortLabel
-              active={false}
+              className={classes.icon}
+              active={true}
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
-              {headCell.label}
               {orderBy === headCell.id ? (
                 <span className={classes.visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
@@ -174,12 +177,12 @@ const useToolbarStyles = makeStyles((theme) => ({
         },
   title: {
     flex: '1 1 100%',
-    color: "green",
+    color: "#48E822",
     fontSize: 32
   },
   where: {
-    color: "green",
-    fontSize: 20,
+    color: "#48E822",
+    fontSize: 18,
 
   }
 }));
@@ -246,11 +249,25 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
   content: {
-    color: 'green',
+    color: "#48E822",
     fontSize: 16,
+    align: "left"
   },
   input: {
-    color: "white"
+    color: "white",
+  },
+  icon: {
+    opacity: 1,
+    fill: "green"
+  },
+  header: {
+    color: "orange",
+    fontSize: 16
+  },
+  lowContent: {
+    color: "red",
+    fontSize: 16,
+    align: "left"
   }
 
 }));
@@ -272,7 +289,7 @@ const CssTextField = withStyles({
         borderColor: "yellow"
       },
       "&.Mui-focused fieldset": {
-        borderColor: "green"
+        borderColor: "red"
       }
     }
   }
@@ -285,8 +302,8 @@ export default function EnhancedTable() {
   const [orderBy, setOrderBy] = React.useState('LotsAvailable');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(3);
+  const [dense, setDense] = React.useState(true);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [count, setCount] = React.useState(0);
   const [search, setSearch] = React.useState("");
   const [table, setTable] = React.useState(temp);
@@ -369,11 +386,7 @@ export default function EnhancedTable() {
           setSearch(e.target.value.toLowerCase());
           filtering(e.target.value);
         }}
-      />
-        <p>
-          Date : 13/33/22
-          Time: 08:00:00
-        </p>
+        />
         <TableContainer>
           <Table
             className={classes.table}
@@ -412,9 +425,9 @@ export default function EnhancedTable() {
                       <TableCell className={classes.content} component="th" id={labelId} scope="row" padding="none">
                         <b>{row.Carpark}</b>
                       </TableCell>
-                      <TableCell className={classes.content} align="left"><b>{row.Location}</b></TableCell>
-                      <TableCell className={classes.content} align="left"><b>{row.Type}</b></TableCell>                
-                      <TableCell className={classes.content} align="left"><b>{row.LotsAvailable}</b></TableCell>
+                      <TableCell className={classes.content}><b>{row.Location}</b></TableCell>
+                      <TableCell className={classes.content}><b>{row.Type}</b></TableCell>                
+                      <TableCell className={rows.LotsAvailable<50? classes.content: classes.lowContent}><b>{row.LotsAvailable}</b></TableCell>
                     </TableRow>
                   );
                 })}
