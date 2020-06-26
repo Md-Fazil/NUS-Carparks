@@ -1,10 +1,13 @@
 import React from 'react'
 import styled from "styled-components";
 import { useSpring, animated, config } from "react-spring";
-
 import Brand from "./Brand";
 import BurgerMenu from "./BurgerMenu";
 import CollapseMenu from "./CollapseMenu";
+import { Link, animateScroll as scroll } from "react-scroll";
+
+
+
 
 const Navbar = (props) => {
   const barAnimation = useSpring({
@@ -25,9 +28,26 @@ const Navbar = (props) => {
         <FlexContainer>
           <Brand/>
           <NavLinks style={linkAnimation}>
-            <a href="/">Availability</a>
-            <a href="/">Locations</a>
-            <a href="/">Rates</a>
+            <a href="/">
+              <Link 
+              to = "Availability"
+              spy = {true}
+              smooth = {true}
+              offset= {-70}
+              duration = {500}>Availability</Link></a>
+            <a href="/"><Link to="Locations"
+            spy = {true}
+            smooth = {true}
+            offset = {-70}
+            duration = {500}>Locations</Link></a>
+            <a href="/">
+            <Link
+            to="Info"
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={500}
+            >Rates</Link></a>
             <a href="/">Contact Us</a>
           </NavLinks>
           <BurgerWrapper>
@@ -53,7 +73,7 @@ const NavBar = styled(animated.nav)`
   width: 100%;
   top: 0;
   left: 0;
-  background: #2d3436;
+  background: #003D7C;
   z-index: 1;
   font-size: 1.1rem;
 `;
@@ -73,7 +93,7 @@ const NavLinks = styled(animated.ul)`
   margin: auto 0;
 
   & a {
-    color: #dfe6e9;
+    color: #FFFFFF;
     text-transform: uppercase;
     font-weight: 600;
     border-bottom: 1px solid transparent;
@@ -83,7 +103,7 @@ const NavLinks = styled(animated.ul)`
     cursor: pointer;
 
     &:hover {
-      color: #ffbd59;
+      color: #EE7C01;
       border-bottom: 1px solid #fdcb6e;
     }
 
