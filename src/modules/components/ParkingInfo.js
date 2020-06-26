@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Element } from 'react-scroll'
 
+
 const useStyles = makeStyles({
   table: {
     width: '80%',
@@ -34,6 +35,7 @@ export default function SimpleTable() {
   return (
   <div>
   <h2><strong>Operating Hours</strong></h2>
+
   <p style ={{fontSize:16}}>The pay parking operating hours are shown below:</p>
     
     <TableContainer style= {{width: 1200}}>
@@ -50,6 +52,7 @@ export default function SimpleTable() {
         </TableHead>
         <TableBody>
           <TableRow >
+
             <TableCell style={{borderStyle: "solid" , fontSize: 14}}>Monday to Friday (excluding Public Holidays)</TableCell>
             <TableCell style={{borderStyle: "solid" , fontSize: 14}}>0830H – 1930H</TableCell>
           </TableRow>
@@ -66,6 +69,7 @@ export default function SimpleTable() {
     </TableContainer>
     <br/>
     <h2><strong>Visitors' Parking</strong></h2>
+
     <p style ={{fontSize:16}}>Visitors’ parking is available at car parks listed at Table 1. 
     The car parks are installed with automated parking system using Electronic Road Pricing (ERP) technology.<br/> 
     Car park access will be via in-vehicle unit (IU) identification for both season and short-term users.
@@ -74,7 +78,9 @@ export default function SimpleTable() {
     The unclamping fee is $107.00.</p>
 
     <p style ={{fontSize:16}}><strong><u>Table 1 - Car Parks for Visitors (WHITE LOTS only)</u></strong></p>
+
     <p>Please click the respective car parks for the location map.</p>
+
 
 
 
@@ -159,11 +165,13 @@ export default function SimpleTable() {
        **Parking is free for NUS Orange label holders from Monday to Friday, 12.00 – 2.00pm.</p>
     <br></br>
        <h2><strong>Staff Season Car Parks</strong></h2>
+
        <p style ={{fontSize:16}}>Car Parks listed at Table 2 are <strong>strictly</strong> for staff season holders.<strong>  </strong>A penalty surcharge of $0.0856 per minute will be imposed to non-staff season holders parking at these <br/>car parks. The vehicles are also subject to wheel-clamp for unauthorized parking. The unclamping fee is $107.00.</p>
        <p style ={{fontSize:16}}><u>Table 2 &#8211; Car Parks for Staff Season Holders only</u></p>
 
        <TableContainer style= {{width: 1200}}>
          <Table style = {{width: 1200}}>
+
             <TableHead>
               <TableCell style = {{align: "left", borderStyle: 'solid', backgroundColor: '#ff852e'}}>             
                 <span style = {{color: 'white'}}>CAR PARK</span>
@@ -249,6 +257,6 @@ export default function SimpleTable() {
          </Table>
        </TableContainer>
     </div>
-    
+
   );
 }

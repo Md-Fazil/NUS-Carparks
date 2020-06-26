@@ -31,42 +31,42 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 
 
-function createData(Carpark, Location, Type, LotsAvailable) {
-  return {Carpark, Location, Type, LotsAvailable};
+function createData(Carpark, Location, Type, LotsAvailable, link) {
+  return {Carpark, Location, Type, LotsAvailable, link};
 }
 
 const rows = [
-  createData('CP6 (Staff Season)', 'S7 & S13, Faculty of Science', 'Staff Only', 0),
-  createData('CP7 (Staff Season)', 'S10 & S14, Faculty of Science', 'Staff Only', 0),
-  createData('CP8 (Staff Season)', 'S16, Faculty of Science', 'Staff Only', 0),
-  createData('CP9A (Staff Season)', 'MD11, Yong Loo Lin School of Medicine', 'Staff Only', 0),
-  createData('CP10C (Staff Season)', 'Centre of Life Sciences', 'Staff Only', 0),
-  createData('CP1/2/2A/2B', 'Faculty of Engineering', 'Public', 0),
-  createData('CP4', 'Raffles Hall', 'Public', 0),
+  createData('CP6 (Staff Season)', 'S7 & S13, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6.pdf"),
+  createData('CP7 (Staff Season)', 'S10 & S14, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-7.pdf"),
+  createData('CP8 (Staff Season)', 'S16, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-8.pdf"),
+  createData('CP9A (Staff Season)', 'MD11, Yong Loo Lin School of Medicine', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-9A.pdf"),
+  createData('CP10C (Staff Season)', 'Centre of Life Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10C.pdf"),
+  createData('CP1/2/2A/2B', 'Faculty of Engineering', 'Public', 0,'http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-1.pdf'),
+  createData('CP4', 'Raffles Hall', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-44A.pdf"),
   createData('CP2C', 'DSI', 'Public', 0),
-  createData('CP17 (Staff Season)', 'Computer Centre', 'Staff Only', 0),
-  createData('CP3', 'University Cultural Centre/Yong Siew Toh Conservatory of Music', 'Public', 0),
-  createData('CP3A', 'Lee Kong Chian Natural History Museum', 'Public', 0),
-  createData('CP13 (Staff Season)', 'COM1, School of Computing', 'Staff Only', 0),
-  createData('CP14 (Staff Season)', 'Shaw Foundation Building (AS7), Faculty of Arts & Social Sciences', 'Staff Only', 0),
-  createData('CP15', 'Temasek & Eusoff Hall', 'Public', 0),
-  createData('CP11 (Staff Season)', 'BIZ2, School of Business', 'Staff Only', 0),
-  createData('CP12 (Staff Season)', 'Hon Sui Sen Memorial Library, School of Business', 'Staff Only', 0),
-  createData('CP11B', 'Innovation 4.0', 'Public', 0),
+  createData('CP17 (Staff Season)', 'Computer Centre', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-17.pdf"),
+  createData('CP3', 'University Cultural Centre/Yong Siew Toh Conservatory of Music', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-3.pdf"),
+  createData('CP3A', 'Lee Kong Chian Natural History Museum', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-3A.pdf"),
+  createData('CP13 (Staff Season)', 'COM1, School of Computing', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-13.pdf"),
+  createData('CP14 (Staff Season)', 'Shaw Foundation Building (AS7), Faculty of Arts & Social Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-14.pdf"),
+  createData('CP15', 'Temasek & Eusoff Hall', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-15.pdf"),
+  createData('CP11 (Staff Season)', 'BIZ2, School of Business', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-11A.pdf"),
+  createData('CP12 (Staff Season)', 'Hon Sui Sen Memorial Library, School of Business', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-12.pdf"),
+  createData('CP11B', 'Innovation 4.0', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-11.pdf"),
   createData('CP11C', 'TCOMS', 'Public', 0),
-  createData('CP12B', 'I-Cube', 'Public', 0),
-  createData('CP16', 'Lecture Theatre 11, Faculty of Arts and Social Sciences', 'Public', 0),
-  createData('CP18 (Staff Season)', 'AS8, Faculty of Arts & Social Sciences', 'Staff Only', 0),
-  createData('CP10B', 'Prince George’s Park Residences', 'Public', 0),
-  createData('CP10A', 'CRISPS', 'Public', 0),
+  createData('CP12B', 'I-Cube', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-12B.pdf"),
+  createData('CP16', 'Lecture Theatre 11, Faculty of Arts and Social Sciences', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-16.pdf"),
+  createData('CP18 (Staff Season)', 'AS8, Faculty of Arts & Social Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-18.pdf"),
+  createData('CP10B', 'Prince George’s Park Residences', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10B.pdf"),
+  createData('CP10A', 'CRISPS', 'Public', 0,"http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10A.pdf"),
   createData('U-Town', 'University Town (College Avenue East and West)', 'Public', 0),
   createData('CREATETower (Staff Season)', 'CREATE', 'Staff Only', 0),
-  createData('SRC', 'Stephen Riady Centre, U-Town', 'Public', 0),
-  createData('CP6A (Staff Season)', 'S1A, Faculty of Science', 'Staff Only', 0),
-  createData('CP6B', 'University Hall', 'Public', 0),
-  createData('CP5', 'Sports and Recreation Centre', 'Public', 0),
-  createData('CP5B (Staff Season)', 'NUS Staff Club', 'Staff Only', 0),
-  createData('CP10 (Staff Season)', 'S17, Faculty of Science', 'Staff Only', 0),
+  createData('SRC', 'Stephen Riady Centre, U-Town', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-SRC.pdf"),
+  createData('CP6A (Staff Season)', 'S1A, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6A.pdf"),
+  createData('CP6B', 'University Hall', 'Public', 0,"http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6B.pdf"),
+  createData('CP5', 'Sports and Recreation Centre', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-5.pdf"),
+  createData('CP5B (Staff Season)', 'NUS Staff Club', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-5B.pdf"),
+  createData('CP10 (Staff Season)', 'S17, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10-staff.pdf"),
   createData('CP10V', 'S17, Faculty of Science', 'Public', 0),
 ];
 
@@ -450,7 +450,7 @@ export default function EnhancedTable() {
                       selected={isItemSelected}
                     >
                       <TableCell className={classes.content} component="th" id={labelId} scope="row" padding="none" align="center">
-                        <b>{row.Carpark}</b>
+                        <a href={row.link}><b>{row.Carpark}</b></a>
                       </TableCell>
                       <TableCell className={classes.content} align="center"><b>{row.Location}</b></TableCell>
                       <TableCell className={classes.content} align="center"><b>{row.Type}</b></TableCell>                
