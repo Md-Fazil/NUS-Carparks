@@ -11,7 +11,7 @@ const styles = (theme) => ({
   root: {
     
     display: 'flex',
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: 'EE7C01',
     overflow: 'hidden',
     flexDirection: 'column'
   },
@@ -61,7 +61,8 @@ function ProductHowItWorks(props) {
   return (
     <section className={classes.root}>
       
-        <div className = {classes.item}>
+
+        <div className = {classes.item} id = 'Info'>
         <Typography variant="h4" marked="center" className={classes.title} component="h2">
           Parking Info
         </Typography>

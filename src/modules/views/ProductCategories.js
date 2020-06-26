@@ -105,8 +105,8 @@ function ProductCategories(props) {
   
 
   return (
-    <Container className={classes.root} component="section">
-      <div className = {classes.test}/>
+    <Container className={classes.root} component="section" >
+      <div className = {classes.test} id="Locations"/>
       <Typography variant="h4" marked="center" align="center" component="h2">
         Locations
       </Typography>

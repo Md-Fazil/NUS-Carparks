@@ -164,6 +164,9 @@ const useToolbarStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
+    display: "flex",
+    flexDirection: "row"
+   
   },
   highlight:
     theme.palette.type === 'light'
@@ -176,14 +179,20 @@ const useToolbarStyles = makeStyles((theme) => ({
           backgroundColor: theme.palette.secondary.dark,
         },
   title: {
-    flex: '1 1 100%',
+   
     color: "#013D7C",
     fontSize: 32
   },
   where: {
+    display: 'flex',
+    flexDirection: 'row',
     color: "#013D7C",
     fontSize: 18,
 
+  },
+  test: {
+    display: 'flex',
+    flexDirection: 'row'
   }
 }));
 
@@ -195,12 +204,21 @@ const EnhancedTableToolbar = (props) => {
     <Toolbar
       className={classes.root}
     >
-      <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-        Carparks in NUS
+      <Typography  style = {{fontSize: 18}} className={classes.title} variant="h6" id="tableTitle" component="div">
+        NUS CARPARKS
       </Typography>
+      <div style ={{width: 70, borderWidth: 30}}/>
+      <CssTextField
+        label="Search Carpark Location"
+        variant="outlined"
+        id="custom-css-outlined-input"
+        style = {{width: 400}}
+       />
+       <div style ={{width: 10}}/>
       {<div className={classes.where}>
-        <Form.Group controlId="exampleForm.ControlSelect1">
+        <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
           <Form.Label><b>Where to?</b></Form.Label>
+          <div style ={{width: 10}}/>
           <Form.Control as="select">
             <option>School of Computing</option>
             <option>Faculty of Engineering</option>
@@ -224,13 +242,14 @@ EnhancedTableToolbar.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: '80%',
+    opacity: 0.8
+ 
   },
   paper: {
     width: '100%',
     marginBottom: theme.spacing(1),
-    opacity: 1,
-    backgroundColor: "#FFFAFA",
+    backgroundColor: "white",
   },
   table: {
     minWidth: 750,
@@ -250,24 +269,33 @@ const useStyles = makeStyles((theme) => ({
   content: {
     color: "#013D7C",
     fontSize: 16,
+    fontFamily: 'Montserrat',
+    
   },
   input: {
     color: "#013D7C",
   },
   icon: {
     opacity: 1,
+   
+   
   },
   header: {
     color: "#013D7C",
-    fontSize: 16
+    fontSize: 19,
+    fontFamily: 'Montserrat',
+   
+
   },
   lowContent: {
     color: "red",
     fontSize: 16,
+    fontFamily: 'Montserrat'
   },
   highContent: {
     color: "#33F31B",
     fontSize: 16,
+    fontFamily: 'Montserrat'
   }
 
 }));

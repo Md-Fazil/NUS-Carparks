@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '../components/Table'
 import ProductHeroLayout from './ProductHeroLayout';
-import backgroundi from './images/18654.jpg'
+import backgroundi from './images/NUS.jpg'
 
 const backgroundImage =
   'https://images.unsplash.com/photo-1534854638093-bada1813ca19?auto=format&fit=crop&w=1400&q=80';
@@ -14,6 +14,7 @@ const styles = (theme) => ({
     backgroundImage: `url(${backgroundi})`,
     backgroundColor: '#7fc7d9', // Average color of the background image.
     backgroundPosition: 'center',
+    opacity: 0.9
   },
   button: {
     minWidth: 200,
@@ -34,11 +35,13 @@ function ProductHero(props) {
   const { classes } = props;
 
   return (
+    <div id = "Availability">
     <ProductHeroLayout backgroundClassName={classes.background}>
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src={backgroundImage} alt="increase priority" />
       <Table />
     </ProductHeroLayout>
+    </div>
   );
 }
 
