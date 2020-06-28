@@ -63,6 +63,7 @@ function ProductHowItWorks(props) {
       
 
         <div className = {classes.item} id = 'Info'>
+          
         <Typography variant="h4" marked="center" className={classes.title} component="h2">
           Parking Info
         </Typography>

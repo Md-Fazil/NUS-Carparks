@@ -47,7 +47,7 @@ const Navbar = (props) => {
             smooth={true}
             offset={-70}
             duration={500}
-            >Rates</Link></a>
+            >Info</Link></a>
             <a href="/">Contact Us</a>
           </NavLinks>
           <BurgerWrapper>

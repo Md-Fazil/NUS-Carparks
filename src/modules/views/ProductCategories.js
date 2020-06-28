@@ -91,11 +91,7 @@ const styles = (theme) => ({
   test: {
     padding: 15
   },
-  testa: {
-    maxWidth: 300,
-    width: '80%'
   
-  }
   
 });
 
@@ -113,8 +109,7 @@ function ProductCategories(props) {
     
     <div className = {classes.test}/>
     <GMap/>
-      
-   
+    
      
     
     </Container>
