@@ -213,6 +213,7 @@ const EnhancedTableToolbar = (props) => {
     <Toolbar
       className={classes.root}
     >
+    
       <CssTextField
         inputProps={{className: classes.input}}
         InputLabelProps={{className: classes.input}}
@@ -222,7 +223,7 @@ const EnhancedTableToolbar = (props) => {
         style = {{width: 400}}
         onChange = {whenChange}
       />
-      <div style ={{width: 250}}/>
+      <div style ={{width: 450}}/>
       {<div className={classes.where}>
         <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
           <Form.Label><b>Where to?</b></Form.Label>
@@ -250,7 +251,7 @@ EnhancedTableToolbar.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '80%',
+    width: '100%',
     opacity: 0.8
  
   },

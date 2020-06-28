@@ -10,7 +10,7 @@ const styles = (theme) => ({
     width: 73,
     display: 'block',
     margin: `${theme.spacing(1)}px auto 0`,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: 'blue',
   },
   markedH3Center: {
     height: 4,
@@ -24,7 +24,7 @@ const styles = (theme) => ({
     width: 55,
     display: 'block',
     margin: `${theme.spacing(1)}px auto 0`,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#003D7C',
   },
   markedH6Left: {
     height: 2,

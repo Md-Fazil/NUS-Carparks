@@ -40,10 +40,11 @@ const data = {"carpark":[{"lots":26,"longitude":103.778961,"latitude":1.296788,"
 
 const mapStyles = {
   width: '95%',
-  height: '50%',
+  height: '70%',
   justifyContent: "center",
   align: "center",
   overflow: 'hidden',
+ 
   
 };
 
@@ -89,7 +90,7 @@ export class MapContainer extends Component {
       }}>
       <Map
           google = {this.props.google}
-          zoom = {15}
+          zoom = {15.5}
           style = {mapStyles}
           initialCenter = {{
                             lat: 1.297887,

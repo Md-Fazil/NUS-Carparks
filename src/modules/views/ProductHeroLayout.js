@@ -15,7 +15,7 @@ const styles = (theme) => ({
       minHeight: 500,
       maxHeight: 1300,
     },
-    padding: 200
+  
     
   },
   container: {

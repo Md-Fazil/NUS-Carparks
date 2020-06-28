@@ -31,7 +31,7 @@ const styles = (theme) => ({
   },
   title: {
     marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(1),
   },
   number: {
     fontSize: 24,

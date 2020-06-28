@@ -10,7 +10,7 @@ const styles = (theme) => ({
   root: {
     marginTop: theme.spacing(0),
     marginBottom: theme.spacing(0),
-    height: 550,
+    height: 700,
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
