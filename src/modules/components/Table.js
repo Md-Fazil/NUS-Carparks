@@ -261,7 +261,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     width: '100%',
     marginBottom: theme.spacing(1),
-    backgroundColor: "white",
+    backgroundColor: "#F8F8F8",
   },
   table: {
     minWidth: 750,
@@ -344,11 +344,12 @@ export default function EnhancedTable() {
   const [search, setSearch] = React.useState("");
   const [table, setTable] = React.useState(temp);
 
-  /*useEffect(() => {
+ /* useEffect(() => {
     axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
         {setLive(response.data.carpark); setCount(count + 1)})
         .catch(err => console.log(err))
-  });*/
+  });
+  */
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';

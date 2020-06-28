@@ -5,7 +5,10 @@ import logo from "../../assets/Logo3.png";
 
 const Brand = () => {
   return (
-    <Image src={logo} alt="Company Logo" href= '/'/>
+
+    <p style = {{fontSize: 24, fontWeight: 'bold',  color: 'white'}}
+    ><i>PARK</i><span style ={{color:'#ff852e'}}>@NUS</span></p>
+    
   )
 }
 
@@ -16,3 +19,4 @@ width: 10%;
 height: 110%;
 
 `;
+//<Image src={logo} alt="Company Logo" href= '/'/>
