@@ -113,7 +113,7 @@ function stableSort(array, comparator) {
 const headCells = [
   { id: 'Carpark', numeric: false, disablePadding: true, label: 'Carpark' },
   { id: 'Location', numeric: false, disablePadding: false, label: 'Location' },
-  { id: 'Type', numeric: false, disablePadding: false, label: 'Carpark Type' },
+  { id: 'Type', numeric: false, disablePadding: false, label: 'Type' },
   { id: 'LotsAvailable', numeric: true, disablePadding: false, label: 'Lots Available' },
 ];
 
@@ -213,10 +213,6 @@ const EnhancedTableToolbar = (props) => {
     <Toolbar
       className={classes.root}
     >
-      <Typography  style = {{fontSize: 18}} className={classes.title} variant="h6" id="tableTitle" component="div">
-        NUS CARPARKS
-      </Typography>
-      <div style ={{width: 70, borderWidth: 30}}/>
       <CssTextField
         inputProps={{className: classes.input}}
         InputLabelProps={{className: classes.input}}
@@ -226,7 +222,7 @@ const EnhancedTableToolbar = (props) => {
         style = {{width: 400}}
         onChange = {whenChange}
       />
-       <div style ={{width: 10}}/>
+      <div style ={{width: 250}}/>
       {<div className={classes.where}>
         <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
           <Form.Label><b>Where to?</b></Form.Label>
@@ -472,7 +468,7 @@ export default function EnhancedTable() {
         </TableContainer>
         <TablePagination
           className={classes.content}
-          rowsPerPageOptions={[3, 5]}
+          rowsPerPageOptions={[5, 7]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
