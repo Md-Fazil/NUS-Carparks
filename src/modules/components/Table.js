@@ -26,8 +26,7 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
-import Icon from '@material-ui/core/Icon'
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+
 
 
 
@@ -36,41 +35,48 @@ function createData(Carpark, Location, Type, LotsAvailable, link) {
 }
 
 const rows = [
-  createData('CP6 (Staff Season)', 'S7 & S13, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6.pdf"),
-  createData('CP7 (Staff Season)', 'S10 & S14, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-7.pdf"),
-  createData('CP8 (Staff Season)', 'S16, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-8.pdf"),
-  createData('CP9A (Staff Season)', 'MD11, Yong Loo Lin School of Medicine', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-9A.pdf"),
-  createData('CP10C (Staff Season)', 'Centre of Life Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10C.pdf"),
+  createData('CP6', 'S7 & S13, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6.pdf"),
+  createData('CP7', 'S10 & S14, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-7.pdf"),
+  createData('CP8', 'S16, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-8.pdf"),
+  createData('CP9A', 'MD11, Yong Loo Lin School of Medicine', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-9A.pdf"),
+  createData('CP10C', 'Centre of Life Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10C.pdf"),
   createData('CP1/2/2A/2B', 'Faculty of Engineering', 'Public', 0,'http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-1.pdf'),
   createData('CP4', 'Raffles Hall', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-44A.pdf"),
   createData('CP2C', 'DSI', 'Public', 0),
-  createData('CP17 (Staff Season)', 'Computer Centre', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-17.pdf"),
+  createData('CP17', 'Computer Centre', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-17.pdf"),
   createData('CP3', 'University Cultural Centre/Yong Siew Toh Conservatory of Music', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-3.pdf"),
   createData('CP3A', 'Lee Kong Chian Natural History Museum', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-3A.pdf"),
-  createData('CP13 (Staff Season)', 'COM1, School of Computing', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-13.pdf"),
-  createData('CP14 (Staff Season)', 'Shaw Foundation Building (AS7), Faculty of Arts & Social Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-14.pdf"),
+  createData('CP13', 'COM1, School of Computing', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-13.pdf"),
+  createData('CP14', 'Shaw Foundation Building (AS7), Faculty of Arts & Social Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-14.pdf"),
   createData('CP15', 'Temasek & Eusoff Hall', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-15.pdf"),
-  createData('CP11 (Staff Season)', 'BIZ2, School of Business', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-11A.pdf"),
-  createData('CP12 (Staff Season)', 'Hon Sui Sen Memorial Library, School of Business', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-12.pdf"),
+  createData('CP11', 'BIZ2, School of Business', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-11A.pdf"),
+  createData('CP12', 'Hon Sui Sen Memorial Library, School of Business', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-12.pdf"),
   createData('CP11B', 'Innovation 4.0', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-11.pdf"),
   createData('CP11C', 'TCOMS', 'Public', 0),
   createData('CP12B', 'I-Cube', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-12B.pdf"),
   createData('CP16', 'Lecture Theatre 11, Faculty of Arts and Social Sciences', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-16.pdf"),
-  createData('CP18 (Staff Season)', 'AS8, Faculty of Arts & Social Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-18.pdf"),
+  createData('CP18', 'AS8, Faculty of Arts & Social Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-18.pdf"),
   createData('CP10B', 'Prince George’s Park Residences', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10B.pdf"),
   createData('CP10A', 'CRISPS', 'Public', 0,"http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10A.pdf"),
   createData('U-Town', 'University Town (College Avenue East and West)', 'Public', 0),
-  createData('CREATETower (Staff Season)', 'CREATE', 'Staff Only', 0),
+  createData('CREATETower', 'CREATE', 'Staff Only', 0),
   createData('SRC', 'Stephen Riady Centre, U-Town', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-SRC.pdf"),
-  createData('CP6A (Staff Season)', 'S1A, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6A.pdf"),
+  createData('CP6A', 'S1A, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6A.pdf"),
   createData('CP6B', 'University Hall', 'Public', 0,"http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6B.pdf"),
   createData('CP5', 'Sports and Recreation Centre', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-5.pdf"),
-  createData('CP5B (Staff Season)', 'NUS Staff Club', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-5B.pdf"),
-  createData('CP10 (Staff Season)', 'S17, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10-staff.pdf"),
+  createData('CP5B', 'NUS Staff Club', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-5B.pdf"),
+  createData('CP10', 'S17, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10-staff.pdf"),
   createData('CP10V', 'S17, Faculty of Science', 'Public', 0),
 ];
 
 var temp = rows;
+
+
+function filtering(string) {
+  const tableResult = rows.filter(row => row.Location.toLowerCase().includes(string));
+  temp = tableResult;
+}
+
 
 function setLive(array){
   for(let i = 0; i < rows.length; i++){
@@ -193,12 +199,15 @@ const useToolbarStyles = makeStyles((theme) => ({
   test: {
     display: 'flex',
     flexDirection: 'row'
+  },
+  input: {
+    color: "#013D7C",
   }
 }));
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected,} = props;
+  const { numSelected, whenChange} = props;
 
   return (
     <Toolbar
@@ -209,11 +218,14 @@ const EnhancedTableToolbar = (props) => {
       </Typography>
       <div style ={{width: 70, borderWidth: 30}}/>
       <CssTextField
+        inputProps={{className: classes.input}}
+        InputLabelProps={{className: classes.input}}
         label="Search Carpark Location"
         variant="outlined"
         id="custom-css-outlined-input"
         style = {{width: 400}}
-       />
+        onChange = {whenChange}
+      />
        <div style ={{width: 10}}/>
       {<div className={classes.where}>
         <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
@@ -272,9 +284,6 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Montserrat',
     
   },
-  input: {
-    color: "#013D7C",
-  },
   icon: {
     opacity: 1,
    
@@ -296,8 +305,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#33F31B",
     fontSize: 16,
     fontFamily: 'Montserrat'
-  }
-
+  },
 }));
 
 const CssTextField = withStyles({
@@ -390,8 +398,9 @@ export default function EnhancedTable() {
     setDense(event.target.checked);
   };
 
-  function filtering(string) {
-    const tableResult = rows.filter(row => row.Location.toLowerCase().includes(string));
+  const filtering = (event) => {
+    setSearch(event.target.value.toLowerCase());
+    const tableResult = rows.filter(row => row.Location.toLowerCase().includes(event.target.value.toLowerCase()));
     setTable(tableResult);
   }
 
@@ -402,18 +411,11 @@ export default function EnhancedTable() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <CssTextField
-        inputProps={{className: classes.input}}
-        InputLabelProps={{className: classes.input}}
-        label="Search Carpark Location"
-        variant="outlined"
-        id="custom-css-outlined-input"
-        value={search}
-        onChange={e => {
-          setSearch(e.target.value.toLowerCase());
-          filtering(e.target.value);
-        }}/>
+        <EnhancedTableToolbar 
+          numSelected={selected.length} 
+          table={table} 
+          value={search}
+          whenChange={filtering}/>
         <TableContainer>
           <Table
             className={classes.table}
@@ -450,7 +452,7 @@ export default function EnhancedTable() {
                       selected={isItemSelected}
                     >
                       <TableCell className={classes.content} component="th" id={labelId} scope="row" padding="none" align="center">
-                        <a href={row.link}><b>{row.Carpark}</b></a>
+                        <a href={row.link} target="_blank"><b>{row.Carpark}</b></a>
                       </TableCell>
                       <TableCell className={classes.content} align="center"><b>{row.Location}</b></TableCell>
                       <TableCell className={classes.content} align="center"><b>{row.Type}</b></TableCell>                
