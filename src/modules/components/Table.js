@@ -111,7 +111,7 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'Carpark', numeric: false, disablePadding: true, label: 'Car Park' },
+  { id: 'Carpark', numeric: false, disablePadding: true, label: 'Carpark' },
   { id: 'Location', numeric: false, disablePadding: false, label: 'Location' },
   { id: 'Type', numeric: false, disablePadding: false, label: 'Type' },
   { id: 'LotsAvailable', numeric: true, disablePadding: false, label: 'Lots Available' },
@@ -336,7 +336,7 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
-  const [rowsPerPage, setRowsPerPage] = React.useState(7);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [count, setCount] = React.useState(0);
   const [search, setSearch] = React.useState("");
   const [table, setTable] = React.useState(temp);
