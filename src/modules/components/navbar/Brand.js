@@ -6,8 +6,8 @@ import logo from "../../assets/Logo3.png";
 const Brand = () => {
   return (
 
-    <p style = {{fontSize: 24, fontWeight: 'bold',  color: 'white'}}
-    ><i>PARK</i><span style ={{color:'#ff852e'}}>@NUS</span></p>
+    <a href = '/'><p style = {{fontSize: 24, fontWeight: 'bold',  color: 'white'}}
+    ><i>PARK</i><span style ={{color:'#ff852e'}}>@NUS</span></p></a>
     
   )
 }

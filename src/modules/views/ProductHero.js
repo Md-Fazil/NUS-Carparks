@@ -14,7 +14,6 @@ const styles = (theme) => ({
     backgroundImage: `url(${backgroundi})`,
     backgroundColor: '#7fc7d9', // Average color of the background image.
     backgroundPosition: 'center',
-    opacity: 1,
     height: 700
     
   },

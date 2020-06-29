@@ -28,26 +28,26 @@ const Navbar = (props) => {
         <FlexContainer>
           <Brand/>
           <NavLinks style={linkAnimation}>
-            <a href="/">
+            
               <Link 
               to = "Availability"
               spy = {true}
               smooth = {true}
               offset= {-70}
-              duration = {500}>Availability</Link></a>
-            <a href="/"><Link to="Locations"
+              duration = {500}>Availability</Link>
+          <Link to="Locations"
             spy = {true}
             smooth = {true}
             offset = {-70}
-            duration = {500}>Locations</Link></a>
-            <a href="/">
+            duration = {500}>Locations</Link>
+            
             <Link
             to="Info"
             spy={true}
             smooth={true}
             offset={-70}
             duration={500}
-            >Info</Link></a>
+            >Info</Link>
             <a href="/">Contact Us</a>
           </NavLinks>
           <BurgerWrapper>

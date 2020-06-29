@@ -43,7 +43,7 @@ const styles = (theme) => ({
     bottom: 0,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    zIndex: -2,
+    zIndex: -2
   },
   arrowDown: {
     position: 'absolute',

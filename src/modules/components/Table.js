@@ -336,7 +336,7 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(7);
   const [count, setCount] = React.useState(0);
   const [search, setSearch] = React.useState("");
   const [table, setTable] = React.useState(temp);
