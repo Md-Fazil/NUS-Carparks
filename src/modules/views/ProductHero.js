@@ -41,8 +41,7 @@ function ProductHero(props) {
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src={backgroundImage} alt="increase priority" />
       <Table />
-    
-    </ProductHeroLayout>
+    </ ProductHeroLayout>
     </div>
   );
 }

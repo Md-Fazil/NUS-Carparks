@@ -111,7 +111,7 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'Carpark', numeric: false, disablePadding: true, label: 'Carpark' },
+  { id: 'Carpark', numeric: false, disablePadding: true, label: 'Car Park' },
   { id: 'Location', numeric: false, disablePadding: false, label: 'Location' },
   { id: 'Type', numeric: false, disablePadding: false, label: 'Type' },
   { id: 'LotsAvailable', numeric: true, disablePadding: false, label: 'Lots Available' },
