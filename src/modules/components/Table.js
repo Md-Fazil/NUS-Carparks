@@ -340,13 +340,22 @@ export default function EnhancedTable() {
   const [count, setCount] = React.useState(0);
   const [search, setSearch] = React.useState("");
   const [table, setTable] = React.useState(temp);
-
- /* useEffect(() => {
-    axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
-        {setLive(response.data.carpark); setCount(count + 1)})
-        .catch(err => console.log(err))
+  const [location, setLocation] = React.useState([0,0]);
+  
+  useEffect(() => {
+   // axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
+   //     {setLive(response.data.carpark); setCount(count + 1)})
+   //     .catch(err => console.log(err));
+  if (navigator && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(pos => {
+        console.log(pos);
+        const coords = pos.coords;
+        setLocation([coords.longitude, coords.latitude]);
+        });
+     }
   });
-  */
+  
+  
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
