@@ -14,68 +14,56 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Col from 'react-bootstrap/Col'
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
 
 
 
 
-function createData(Carpark, Location, Type, LotsAvailable, link) {
-  return {Carpark, Location, Type, LotsAvailable, link};
+function createData(Carpark, Location, Type, LotsAvailable, Coords, link) {
+  return {Carpark, Location, Type, LotsAvailable, Coords, link};
 }
 
 const rows = [
-  createData('CP6', 'S7 & S13, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6.pdf"),
-  createData('CP7', 'S10 & S14, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-7.pdf"),
-  createData('CP8', 'S16, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-8.pdf"),
-  createData('CP9A', 'MD11, Yong Loo Lin School of Medicine', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-9A.pdf"),
-  createData('CP10C', 'Centre of Life Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10C.pdf"),
-  createData('CP1/2/2A/2B', 'Faculty of Engineering', 'Public', 0,'http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-1.pdf'),
-  createData('CP4', 'Raffles Hall', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-44A.pdf"),
-  createData('CP2C', 'DSI', 'Public', 0),
-  createData('CP17', 'Computer Centre', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-17.pdf"),
-  createData('CP3', 'University Cultural Centre/Yong Siew Toh Conservatory of Music', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-3.pdf"),
-  createData('CP3A', 'Lee Kong Chian Natural History Museum', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-3A.pdf"),
-  createData('CP13', 'COM1, School of Computing', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-13.pdf"),
-  createData('CP14', 'Shaw Foundation Building (AS7), Faculty of Arts & Social Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-14.pdf"),
-  createData('CP15', 'Temasek & Eusoff Hall', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-15.pdf"),
-  createData('CP11', 'BIZ2, School of Business', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-11A.pdf"),
-  createData('CP12', 'Hon Sui Sen Memorial Library, School of Business', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-12.pdf"),
-  createData('CP11B', 'Innovation 4.0', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-11.pdf"),
-  createData('CP11C', 'TCOMS', 'Public', 0),
-  createData('CP12B', 'I-Cube', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-12B.pdf"),
-  createData('CP16', 'Lecture Theatre 11, Faculty of Arts and Social Sciences', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-16.pdf"),
-  createData('CP18', 'AS8, Faculty of Arts & Social Sciences', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-18.pdf"),
-  createData('CP10B', 'Prince George’s Park Residences', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10B.pdf"),
-  createData('CP10A', 'CRISPS', 'Public', 0,"http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10A.pdf"),
-  createData('U-Town', 'University Town (College Avenue East and West)', 'Public', 0),
-  createData('CREATETower', 'CREATE', 'Staff Only', 0),
-  createData('SRC', 'Stephen Riady Centre, U-Town', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-SRC.pdf"),
-  createData('CP6A', 'S1A, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6A.pdf"),
-  createData('CP6B', 'University Hall', 'Public', 0,"http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6B.pdf"),
-  createData('CP5', 'Sports and Recreation Centre', 'Public', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-5.pdf"),
-  createData('CP5B', 'NUS Staff Club', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-5B.pdf"),
-  createData('CP10', 'S17, Faculty of Science', 'Staff Only', 0, "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10-staff.pdf"),
-  createData('CP10V', 'S17, Faculty of Science', 'Public', 0),
+  createData('CP6', 'S7 & S13, Faculty of Science', 'Staff Only', 28, [103.778961, 1.296788], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6.pdf"),
+  createData('CP7', 'S10 & S14, Faculty of Science', 'Staff Only', 26, [103.779851, 1.297239], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-7.pdf"),
+  createData('CP8', 'S16, Faculty of Science', 'Staff Only', 26, [103.780732, 1.297417], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-8.pdf"),
+  createData('CP9A', 'MD11, Yong Loo Lin School of Medicine', 'Staff Only', 24, [103.782044, 1.296284], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-9A.pdf"),
+  createData('CP10C', 'Centre of Life Sciences', 'Staff Only', 25, [103.781069, 1.294556], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10C.pdf"),
+  createData('CP1/2/2A/2B', 'Faculty of Engineering', 'Public', 386, [103.77098, 1.296488], 'http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-1.pdf'),
+  createData('CP4', 'Raffles Hall', 'Public', 116, [103.774462, 1.299937], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-44A.pdf"),
+  createData('CP2C', 'DSI', 'Public', 45, [103.772492, 1.299078]),
+  createData('CP17', 'Computer Centre', 'Staff Only', 41, [103.772388, 1.297044], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-17.pdf"),
+  createData('CP3', 'University Cultural Centre/Yong Siew Toh Conservatory of Music', 'Public', 220, [103.77331, 1.302189], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-3.pdf"),
+  createData('CP3A', 'Lee Kong Chian Natural History Museum', 'Public', 45, [103.773386, 1.301946], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-3A.pdf"),
+  createData('CP13', 'COM1, School of Computing', 'Staff Only', 113, [103.772555, 1.294125], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-13.pdf"),
+  createData('CP14', 'Shaw Foundation Building (AS7), Faculty of Arts & Social Sciences', 'Staff Only', 132, [103.770616, 1.295049], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-14.pdf"),
+  createData('CP15', 'Temasek & Eusoff Hall', 'Public', 443, [103.772185, 1.293211], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-15.pdf"),
+  createData('CP11', 'BIZ2, School of Business', 'Staff Only', 51, [103.775315, 1.293776], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-11A.pdf"),
+  createData('CP12', 'Hon Sui Sen Memorial Library, School of Business', 'Staff Only', 41, [103.774633, 1.292603], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-12.pdf"),
+  createData('CP11B', 'Innovation 4.0', 'Public', 55, [103.775855, 1.293894], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-11.pdf"),
+  createData('CP11C', 'TCOMS', 'Public', 7, [103.776944, 1.293611]),
+  createData('CP12B', 'I-Cube', 'Public', 94, [103.776079, 1.291773], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-12B.pdf"),
+  createData('CP16', 'Lecture Theatre 11, Faculty of Arts and Social Sciences', 'Public', 22, [103.77079, 1.295536], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-16.pdf"),
+  createData('CP18', 'AS8, Faculty of Arts & Social Sciences', 'Staff Only', 27, [103.771951, 1.296164], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-18.pdf"),
+  createData('CP10B', 'Prince George’s Park Residences', 'Public', 0, [103.780267, 1.291692], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10B.pdf"),
+  createData('CP10A', 'CRISPS', 'Public', 0, [103.781627, 1.292182], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10A.pdf"),
+  createData('U-Town', 'University Town (College Avenue East and West)', 'Public', 47, [103.774087, 1.303158]),
+  createData('CREATETower', 'CREATE', 'Staff Only', 130, [103.773435, 1.303741]),
+  createData('SRC', 'Stephen Riady Centre, U-Town', 'Public', 323, [103.77194, 1.304957], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-SRC.pdf"),
+  createData('CP6A', 'S1A, Faculty of Science', 'Staff Only', 20, [103.778297, 1.296911], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6A.pdf"),
+  createData('CP6B', 'University Hall', 'Public', 161, [103.777296, 1.297492], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-6B.pdf"),
+  createData('CP5', 'Sports and Recreation Centre', 'Public', 140, [103.77441, 1.300671], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-5.pdf"),
+  createData('CP5B', 'NUS Staff Club', 'Staff Only', 29, [103.7753, 1.299], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-5B.pdf"),
+  createData('CP10', 'S17, Faculty of Science', 'Staff Only', 212, [103.781555, 1.297461], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10-staff.pdf"),
+  createData('CP10V', 'S17, Faculty of Science', 'Public', 45, [103.782244, 1.297083]),
 ];
 
 var temp = rows;
-
-
-function filtering(string) {
-  const tableResult = rows.filter(row => row.Location.toLowerCase().includes(string));
-  temp = tableResult;
-}
 
 
 function setLive(array){
@@ -84,7 +72,40 @@ function setLive(array){
   }
 }
 
-function descendingComparator(a, b, orderBy) {
+function distance(lat1, lon1, lat2, lon2) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist) * (180/Math.PI) * 60 * 1.1515 * 1.609344;
+		return dist;
+	}
+}
+
+function distanceComparator(a, b, location) {
+  const locationToA = distance(a.Coords[1], a.Coords[0], location[1], location[0]);
+  const locationToB = distance(b.Coords[1], b.Coords[0], location[1], location[0]);
+  if (locationToB < locationToA) {
+    return 1;
+  }
+  if (locationToB > locationToA) {
+    return -1;
+  }
+  return 0;
+}
+
+function descendingComparator(a, b, orderBy, location) {
+  if (orderBy === "Coords") {
+    return distanceComparator(a, b, location);
+  }
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -94,10 +115,10 @@ function descendingComparator(a, b, orderBy) {
   return 0;
 }
 
-function getComparator(order, orderBy) {
+function getComparator(order, orderBy, location) {
   return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+    ? (a, b) => descendingComparator(a, b, orderBy, location)
+    : (a, b) => -descendingComparator(a, b, orderBy, location);
 }
 
 function stableSort(array, comparator) {
@@ -207,7 +228,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, whenChange} = props;
+  const { numSelected, whenChange, finalPlace, selected} = props;
 
   return (
     <Toolbar
@@ -225,20 +246,22 @@ const EnhancedTableToolbar = (props) => {
       />
       <div style ={{width: 450}}/>
       {<div className={classes.where}>
-        <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
-          <Form.Label><b>Where to?</b></Form.Label>
-          <div style ={{width: 10}}/>
-          <Form.Control as="select">
-            <option>School of Computing</option>
-            <option>Faculty of Engineering</option>
-            <option>Faculty of Science</option>
-            <option>U-town</option>
-            <option>School of Business</option>
-          </Form.Control>
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Go!
-        </Button>
+        <Form onSubmit={finalPlace}>
+          <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
+            <Form.Label><b>Where to?</b></Form.Label>
+            <div style ={{width: 10}}/>
+            <Form.Control as="select" onChange={selected}>
+              <option>School of Computing</option>
+              <option value={[103.7682901, 1.3000924]}>Faculty of Engineering</option>
+              <option>Faculty of Science</option>
+              <option>U-town</option>
+              <option>School of Business</option>
+            </Form.Control>
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Go!
+          </Button>
+        </Form>
       </div>}
 
     </Toolbar>
@@ -336,22 +359,33 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
+  const [nearest, setNearest] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(7);
   const [count, setCount] = React.useState(0);
   const [search, setSearch] = React.useState("");
   const [table, setTable] = React.useState(temp);
+  const [location, setLocation] = React.useState([0, 0]);
+  const [finalDestination, setFinalDestination] = React.useState([0, 0]);
 
- /* useEffect(() => {
-    axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
-        {setLive(response.data.carpark); setCount(count + 1)})
-        .catch(err => console.log(err))
+  useEffect(() => {
+    //axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
+        //{setLive(response.data.carpark); setCount(count + 1)})
+        //.catch(err => console.log(err))
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const coords = position.coords;
+        setLocation([coords.longitude, coords.latitude]);
+      })
+    }
   });
-  */
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
+    if (nearest) {
+      setNearest(false);
+    }
   };
 
   const handleSelectAllClick = (event) => {
@@ -400,6 +434,26 @@ export default function EnhancedTable() {
     setSearch(event.target.value.toLowerCase());
     const tableResult = rows.filter(row => row.Location.toLowerCase().includes(event.target.value.toLowerCase()));
     setTable(tableResult);
+  };
+
+  const handleChange = (event) => {
+    setFinalDestination(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    const tableResult = stableSort(table, getComparator(order, orderBy, finalDestination));
+    alert(finalDestination);
+    setTable(tableResult);
+  }
+
+  const handleSort = (event) => {
+    if (event.target.checked) {
+      setOrder('desc');
+      setOrderBy("Coords");
+    } else {
+      setOrderBy("LotsAvailable");
+    }
+    setNearest(event.target.checked);
   }
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
@@ -411,9 +465,9 @@ export default function EnhancedTable() {
       <Paper className={classes.paper}>
         <EnhancedTableToolbar 
           numSelected={selected.length} 
-          table={table} 
-          value={search}
-          whenChange={filtering}/>
+          whenChange={filtering}
+          selected={handleChange}
+          finalPlace={handleSubmit}/>
         <TableContainer>
           <Table
             className={classes.table}
@@ -432,7 +486,7 @@ export default function EnhancedTable() {
               rowCount={rows.length}
             />
             <TableBody>
-              {stableSort(table, getComparator(order, orderBy))
+              {stableSort(table, getComparator(order, orderBy, location))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.Carpark);
@@ -479,8 +533,8 @@ export default function EnhancedTable() {
         />
       </Paper>
       <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
+        control={<Switch checked={nearest} onChange={handleSort} />}
+        label="Nearest"
       />
     </div>
   );
