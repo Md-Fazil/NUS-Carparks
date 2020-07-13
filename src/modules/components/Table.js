@@ -403,7 +403,7 @@ export default function EnhancedTable() {
   const [search, setSearch] = React.useState("");
   const [table, setTable] = React.useState(temp);
   const [location, setLocation] = React.useState([0,0]);
-  const [finalDestination, setFinalDestination] = React.useState([103.772555, 1.29412]);
+  const [finalDestination, setFinalDestination] = React.useState([103.7714891, 1.2948582]);
   const [isFinalSelected, setIsFinalSelected] = React.useState(false);
   const [isFirstTime, setIsFirstTime] = React.useState(true);
 
@@ -412,19 +412,21 @@ export default function EnhancedTable() {
         //{setLive(response.data.carpark); setCount(count + 1)})
         //.catch(err => console.log(err))
     if (isFirstTime) {
-      alert('if case');
       navigator.geolocation.getCurrentPosition((position) => {
         const coords = position.coords;
         setLocation([coords.longitude, coords.latitude]);
       });
       setIsFirstTime(false);
-    } else if (navigator.geolocation) {
+    } 
+    if (isFinalSelected) {
+    
+    } else if (navigator.geolocation && !isFinalSelected) {
       const interval = setInterval(() => {
         navigator.geolocation.getCurrentPosition((position) => {
           const coords = position.coords;
           setLocation([coords.longitude, coords.latitude]);
         })
-      }, 15000);
+      }, 5000);
       return () => clearInterval(interval);
     }
  
@@ -495,18 +497,14 @@ export default function EnhancedTable() {
   };
 
   const handleSubmit = () => {
-    //const tableResult = stableSort(table, getComparator(order, "Coords", finalDestination));  
-    alert('handleSubmit');
-    if (!nearest) {
-      setOrderBy('Coords');
-      setOrder('desc');
-      setNearest(true);
-    }
+    //const tableResult = stableSort(table, getComparator(order, "Coords", finalDestination));
+    alert(orderBy);
+    alert(finalDestination);
+    setIsFinalSelected(true);
     setLocation(finalDestination);
   }
 
   const handleSort = (event) => {
-    alert('handleSort')
     if (event.target.checked && orderBy !== "Type") {
       setOrder("desc");
       setOrderBy("Coords");
