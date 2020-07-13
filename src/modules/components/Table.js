@@ -246,7 +246,7 @@ const EnhancedTableToolbar = (props) => {
       />
       <div style ={{width: 450}}/>
       {<div className={classes.where}>
-        <Form onSubmit={finalPlace}>
+        <Form onSubmit={finalPlace} style = {{display: "flex"}}>
           <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
             <Form.Label><b>Where to?</b></Form.Label>
             <div style ={{width: 10}}/>
@@ -258,6 +258,7 @@ const EnhancedTableToolbar = (props) => {
               <option>School of Business</option>
             </Form.Control>
           </Form.Group>
+          <div style = {{width: 15}}/>
           <Button variant="primary" type="submit">
             Go!
           </Button>
@@ -377,6 +378,7 @@ export default function EnhancedTable() {
         setLocation([coords.longitude, coords.latitude]);
       })
     }
+ 
   });
 
   const handleRequestSort = (event, property) => {
