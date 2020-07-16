@@ -279,9 +279,8 @@ const EnhancedTableToolbar = (props) => {
         style = {{width: 400}}
         onChange = {whenChange}
       />
-      <div style ={{width: 300}}/>
-      <SearchList selectedLocation={selected} finalClick={finalPlace} />
-      <div className={classes.where}>
+      <div style ={{width: 450}}/>
+      {<div className={classes.where}>
           <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
             <Form.Label><b>Where to?</b></Form.Label>
             <div style ={{width: 10}}/>
@@ -299,7 +298,7 @@ const EnhancedTableToolbar = (props) => {
           <Button variant="primary" type="submit" onClick={finalPlace}>
             Go!
           </Button>
-      </div>
+      </div>}
 
     </Toolbar>
   );
@@ -403,7 +402,7 @@ export default function EnhancedTable() {
   const [search, setSearch] = React.useState("");
   const [table, setTable] = React.useState(temp);
   const [location, setLocation] = React.useState([0,0]);
-  const [finalDestination, setFinalDestination] = React.useState([103.7714891, 1.2948582]);
+  const [finalDestination, setFinalDestination] = React.useState([103.772555, 1.29412]);
   const [isFinalSelected, setIsFinalSelected] = React.useState(false);
   const [isFirstTime, setIsFirstTime] = React.useState(true);
 
@@ -412,21 +411,19 @@ export default function EnhancedTable() {
         //{setLive(response.data.carpark); setCount(count + 1)})
         //.catch(err => console.log(err))
     if (isFirstTime) {
+      alert('if case');
       navigator.geolocation.getCurrentPosition((position) => {
         const coords = position.coords;
         setLocation([coords.longitude, coords.latitude]);
       });
       setIsFirstTime(false);
-    } 
-    if (isFinalSelected) {
-    
-    } else if (navigator.geolocation && !isFinalSelected) {
+    } else if (navigator.geolocation) {
       const interval = setInterval(() => {
         navigator.geolocation.getCurrentPosition((position) => {
           const coords = position.coords;
           setLocation([coords.longitude, coords.latitude]);
         })
-      }, 5000);
+      }, 15000);
       return () => clearInterval(interval);
     }
  
@@ -497,14 +494,18 @@ export default function EnhancedTable() {
   };
 
   const handleSubmit = () => {
-    //const tableResult = stableSort(table, getComparator(order, "Coords", finalDestination));
-    alert(orderBy);
-    alert(finalDestination);
-    setIsFinalSelected(true);
+    //const tableResult = stableSort(table, getComparator(order, "Coords", finalDestination));  
+    alert('handleSubmit');
+    if (!nearest) {
+      setOrderBy('Coords');
+      setOrder('desc');
+      setNearest(true);
+    }
     setLocation(finalDestination);
   }
 
   const handleSort = (event) => {
+    alert('handleSort')
     if (event.target.checked && orderBy !== "Type") {
       setOrder("desc");
       setOrderBy("Coords");
