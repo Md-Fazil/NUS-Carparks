@@ -8,7 +8,7 @@ import MapContainer from './modules/components/ApiMap';
 function App() {
   return (
    <div>
-   <MapContainer/>
+   <Home/>
    </div>
   );
 }

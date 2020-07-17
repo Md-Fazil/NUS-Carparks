@@ -102,52 +102,9 @@ function distanceComparator(a, b, location) {
   return 0;
 }
 
-<<<<<<< HEAD
-function typeComparator(a, b,location, order) {
-  const locationToA = distance(a.Coords[1], a.Coords[0], location[1], location[0]);
-  const locationToB = distance(b.Coords[1], b.Coords[0], location[1], location[0]);
-  if (order === 'desc') {
-    if (b.Type < a.Type) {
-      return -1;
-    }
-    if (b.Type > a.Type) {
-      return 1;
-    }
-    if (locationToB < locationToA) {
-      return 1;
-    }
-    if (locationToB > locationToA) {
-      return -1;
-    }
-    return 0;
-  } else {
-    if (b.Type < a.Type) {
-      return 1;
-    }
-    if (b.Type > a.Type) {
-      return -1;
-    }
-    if (locationToB < locationToA) {
-      return 1;
-    }
-    if (locationToB > locationToA) {
-      return -1;
-    }
-    return 0;
-  }
-}
-
-function descendingComparator(a, b, orderBy, location, order) {
-  if (orderBy === "Coords") {
-    return distanceComparator(a, b,location);
-  }
-  if (orderBy === "Type") {
-    return typeComparator(a, b, location, order);
-=======
 function descendingComparator(a, b, orderBy, location) {
   if (orderBy === "Coords") {
     return distanceComparator(a, b, location);
->>>>>>> bca6b5408c92b13a42854422822ff5e9adcbfa17
   }
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -159,15 +116,9 @@ function descendingComparator(a, b, orderBy, location) {
 }
 
 function getComparator(order, orderBy, location) {
-<<<<<<< HEAD
-  return (order === 'desc' || orderBy === "Type")
-    ? (a, b) => descendingComparator(a, b, orderBy, location, order)
-    : (a, b) => -descendingComparator(a, b, orderBy, location, order);
-=======
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy, location)
     : (a, b) => -descendingComparator(a, b, orderBy, location);
->>>>>>> bca6b5408c92b13a42854422822ff5e9adcbfa17
 }
 
 function stableSort(array, comparator) {
@@ -300,17 +251,10 @@ const EnhancedTableToolbar = (props) => {
             <Form.Label><b>Where to?</b></Form.Label>
             <div style ={{width: 10}}/>
             <Form.Control as="select" onChange={selected}>
-<<<<<<< HEAD
-              <option value={[103.7714891, 1.2948582]}>School of Computing</option>
-              <option value={[103.7682901, 1.3000924]}>Faculty of Engineering</option>
-              <option>Faculty of Science</option>
-              <option value={[103.7708709, 1.3054913]}>U-town</option>
-=======
               <option>School of Computing</option>
               <option value={[103.7682901, 1.3000924]}>Faculty of Engineering</option>
               <option>Faculty of Science</option>
               <option>U-town</option>
->>>>>>> bca6b5408c92b13a42854422822ff5e9adcbfa17
               <option>School of Business</option>
             </Form.Control>
           </Form.Group>
@@ -417,54 +361,28 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
-<<<<<<< HEAD
-  const [nearest, setNearest] = React.useState(navigator.geolocation ? true : false);
-=======
   const [nearest, setNearest] = React.useState(false);
->>>>>>> bca6b5408c92b13a42854422822ff5e9adcbfa17
   const [rowsPerPage, setRowsPerPage] = React.useState(7);
   const [count, setCount] = React.useState(0);
   const [search, setSearch] = React.useState("");
   const [table, setTable] = React.useState(temp);
-<<<<<<< HEAD
-  const [location, setLocation] = React.useState([0,0]);
-  const [finalDestination, setFinalDestination] = React.useState([103.7714891, 1.2948582]);
-  const [isFinalSelected, setIsFinalSelected] = React.useState(false);
-  const [isFirstTime, setIsFirstTime] = React.useState(true);
-=======
   const [location, setLocation] = React.useState([0, 0]);
   const [finalDestination, setFinalDestination] = React.useState([0, 0]);
->>>>>>> bca6b5408c92b13a42854422822ff5e9adcbfa17
+  const [isFinalSelected, setFinalSelected] = React.useState(false);
 
   useEffect(() => {
     //axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
         //{setLive(response.data.carpark); setCount(count + 1)})
         //.catch(err => console.log(err))
-<<<<<<< HEAD
-    if (isFirstTime) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const coords = position.coords;
-        setLocation([coords.longitude, coords.latitude]);
-      });
-      setIsFirstTime(false);
-    } 
-    if (isFinalSelected) {
-    
-    } else if (navigator.geolocation && !isFinalSelected) {
-      const interval = setInterval(() => {
+
+        if(isFinalSelected){
+
+        }
+        if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          const coords = position.coords;
-          setLocation([coords.longitude, coords.latitude]);
-        })
-      }, 5000);
-      return () => clearInterval(interval);
-=======
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
         const coords = position.coords;
         setLocation([coords.longitude, coords.latitude]);
       })
->>>>>>> bca6b5408c92b13a42854422822ff5e9adcbfa17
     }
  
   });
@@ -473,11 +391,7 @@ export default function EnhancedTable() {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
-<<<<<<< HEAD
-    if (nearest && property !== "Type") {
-=======
     if (nearest) {
->>>>>>> bca6b5408c92b13a42854422822ff5e9adcbfa17
       setNearest(false);
     }
   };
@@ -534,31 +448,11 @@ export default function EnhancedTable() {
     setFinalDestination(event.target.value);
   };
 
-<<<<<<< HEAD
-  const handleSubmit = () => {
-    //const tableResult = stableSort(table, getComparator(order, "Coords", finalDestination));
-    alert(orderBy);
-    alert(finalDestination);
-    setIsFinalSelected(true);
-    setLocation(finalDestination);
-  }
-
-  const handleSort = (event) => {
-    if (event.target.checked && orderBy !== "Type") {
-      setOrder("desc");
-      setOrderBy("Coords");
-    } 
-    if (event.target.checked && orderBy === "Type") {
-      setOrderBy("Type");
-    }
-    if (!event.target.checked) {
-      setOrderBy("LotsAvailable");
-    } 
-=======
   const handleSubmit = (event) => {
     const tableResult = stableSort(table, getComparator(order, orderBy, finalDestination));
     alert(finalDestination);
     setTable(tableResult);
+    setFinalSelected(true);
   }
 
   const handleSort = (event) => {
@@ -568,7 +462,6 @@ export default function EnhancedTable() {
     } else {
       setOrderBy("LotsAvailable");
     }
->>>>>>> bca6b5408c92b13a42854422822ff5e9adcbfa17
     setNearest(event.target.checked);
   }
 
