@@ -20,6 +20,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
+import SearchList from './SearchList';
 
 
 
@@ -282,7 +283,7 @@ const EnhancedTableToolbar = (props) => {
         onChange = {whenChange}
       />
       <div style ={{width: 450}}/>
-      {<div className={classes.where}>
+      <div className={classes.where}>
           <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
             <Form.Label><b>Where to?</b></Form.Label>
             <div style ={{width: 10}}/>
@@ -297,7 +298,7 @@ const EnhancedTableToolbar = (props) => {
           <Button variant="primary" type="submit" onClick={finalPlace}>
             Go!
           </Button>
-      </div>}
+      </div>
 
     </Toolbar>
   );
