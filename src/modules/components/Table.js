@@ -279,8 +279,7 @@ const EnhancedTableToolbar = (props) => {
         style = {{width: 400}}
         onChange = {whenChange}
       />
-      <div style ={{width: 300}}/>
-      <SearchList selectedLocation={selected} finalClick={finalPlace} />
+      <div style ={{width: 450}}/>
       <div className={classes.where}>
           <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
             <Form.Label><b>Where to?</b></Form.Label>
