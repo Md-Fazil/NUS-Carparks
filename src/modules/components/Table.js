@@ -276,7 +276,7 @@ const EnhancedTableToolbar = (props) => {
         label="Search Carpark Location"
         variant="outlined"
         id="custom-css-outlined-input"
-        style = {{width: 400}}
+        style = {{width: 400}} 
         onChange = {whenChange}
       />
       <div style ={{width: 450}}/>
