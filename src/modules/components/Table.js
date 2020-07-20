@@ -269,10 +269,7 @@ const EnhancedTableToolbar = (props) => {
   const { numSelected, whenChange, finalPlace, selected} = props;
 
   return (
-    <Toolbar
-      className={classes.root}
-    >
-    
+    <Toolbar className={classes.root}>
       <CssTextField
         inputProps={{className: classes.input}}
         InputLabelProps={{className: classes.input}}
@@ -282,7 +279,8 @@ const EnhancedTableToolbar = (props) => {
         style = {{width: 400}}
         onChange = {whenChange}
       />
-      <div style ={{width: 450}}/>
+      <div style ={{width: 300}}/>
+      <SearchList selectedLocation={selected} finalClick={finalPlace} />
       <div className={classes.where}>
           <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
             <Form.Label><b>Where to?</b></Form.Label>
@@ -293,6 +291,9 @@ const EnhancedTableToolbar = (props) => {
               <option>Faculty of Science</option>
               <option value={[103.7708709, 1.3054913]}>U-town</option>
               <option>School of Business</option>
+              <option>Science Library</option>
+              <option>Music Library</option>
+              <option>Medical Library</option>
             </Form.Control>
           </Form.Group>
           <Button variant="primary" type="submit" onClick={finalPlace}>
