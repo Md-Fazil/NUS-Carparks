@@ -5,6 +5,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Container from '@material-ui/core/Container';
 import Typography from '../components/Typography';
 import GMap from '../components/GMap';
+import App from '../components/ApiMap';
 
 const styles = (theme) => ({
   root: {
@@ -108,7 +109,8 @@ function ProductCategories(props) {
       </Typography>
     
     <div className = {classes.test}/>
-    <GMap/>
+    <App/>
+
     
      
     
