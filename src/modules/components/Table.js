@@ -21,6 +21,7 @@ import Button from 'react-bootstrap/Button'
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
 import SearchList from './SearchList';
+import { DistanceMatrixService, useLoadScript } from '@react-google-maps/api';
 
 
 
@@ -63,6 +64,44 @@ const rows = [
   createData('CP10', 'S17, Faculty of Science', 'Staff Only', 212, [103.781555, 1.297461], "http://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Car-Park-10-staff.pdf"),
   createData('CP10V', 'S17, Faculty of Science', 'Public', 45, [103.782244, 1.297083]),
 ];
+
+const destinationData = [
+  {lng:103.778961,lat:1.296788},
+  {lng:103.779851,lat:1.297239},
+  {lng:103.780732,lat:1.297417},
+  {lng:103.782044,lat:1.296284},
+  {lng:103.781069,lat:1.294556},
+  {lng:103.77098,lat:1.296488},
+  {lng:103.774462,lat:1.299937},
+  {lng:103.772492,lat:1.299078},
+  {lng:103.772388,lat:1.297044},
+  {lng:103.77331,lat:1.302189},
+  {lng:103.773386,lat:1.301946},
+  {lng:103.772555,lat:1.294125},
+  {lng:103.770616,lat:1.295049},
+  {lng:103.772185,lat:1.293211},
+  {lng:103.775315,lat:1.293776},
+  {lng:103.774633,lat:1.292603},
+  {lng:103.775855,lat:1.293894},
+  ]
+
+  const destinationData2 = [
+    {lng:103.776944,lat:1.293611},
+    {lng:103.776079,lat:1.291773},
+    {lng:103.77079,lat:1.295536},
+    {lng:103.771951,lat:1.296164},
+    {lng:103.780267,lat:1.291692},
+    {lng:103.781627,lat:1.292182},
+    {lng:103.774087,lat:1.303158},
+    {lng:103.773435,lat:1.303741},
+    {lng:103.77194,lat:1.304957},
+    {lng:103.778297,lat:1.296911},
+    {lng:103.777296,lat:1.297492},
+    {lng:103.77441,lat:1.300671},
+    {lng:103.7753,lat:1.299},
+    {lng:103.781555,lat:1.297461},
+    {lng:103.782244,lat:1.297083}];
+    
 
 var temp = rows;
 
@@ -279,25 +318,9 @@ const EnhancedTableToolbar = (props) => {
         style = {{width: 400}} 
         onChange = {whenChange}
       />
-      <div style ={{width: 450}}/>
+      <div style ={{width: 530}}/>
       <div className={classes.where}>
-          <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
-            <Form.Label><b>Where to?</b></Form.Label>
-            <div style ={{width: 10}}/>
-            <Form.Control as="select" onChange={selected}>
-              <option value={[103.7714891, 1.2948582]}>School of Computing</option>
-              <option value={[103.7682901, 1.3000924]}>Faculty of Engineering</option>
-              <option>Faculty of Science</option>
-              <option value={[103.7708709, 1.3054913]}>U-town</option>
-              <option>School of Business</option>
-              <option>Science Library</option>
-              <option>Music Library</option>
-              <option>Medical Library</option>
-            </Form.Control>
-          </Form.Group>
-          <Button variant="primary" type="submit" onClick={finalPlace}>
-            Go!
-          </Button>
+        <SearchList selectedLocation={whenChange} finalClick={finalPlace}/>
       </div>
 
     </Toolbar>
@@ -387,9 +410,15 @@ const CssTextField = withStyles({
   }
 })(TextField);
 
+const libraries = ["places"];
+
 export default function EnhancedTable() {
   const classes = useStyles();
   //const success = (position) => [position.coords.longitude, position.coords.latitude];
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyBrgo3k6ArVPdNxrWTGPQtorFPoJcZjDaQ",
+    libraries,
+  });
 
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState(navigator.geolocation ? 'Coords' : 'LotsAvailable');
@@ -403,8 +432,11 @@ export default function EnhancedTable() {
   const [table, setTable] = React.useState(temp);
   const [location, setLocation] = React.useState([0,0]);
   const [finalDestination, setFinalDestination] = React.useState([103.772555, 1.29412]);
-  const [isFinalSelected, setIsFinalSelected] = React.useState(false);
   const [isFirstTime, setIsFirstTime] = React.useState(true);
+  const [origin, setOrigin] = React.useState([]);
+  const [control, setControl] = React.useState(true);
+  const [response1, setResponse1] = React.useState([]);
+  const [response2, setResponse2] = React.useState([]);
 
   useEffect(() => {
     //axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
@@ -414,6 +446,7 @@ export default function EnhancedTable() {
       alert('if case');
       navigator.geolocation.getCurrentPosition((position) => {
         const coords = position.coords;
+        setOrigin([coords.longitude, coords.latitude]);
         setLocation([coords.longitude, coords.latitude]);
       });
       setIsFirstTime(false);
@@ -501,6 +534,7 @@ export default function EnhancedTable() {
       setOrder('desc');
       setNearest(true);
     }
+    
     setLocation(finalDestination);
   }
 
