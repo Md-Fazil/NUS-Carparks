@@ -22,6 +22,8 @@ import { TextField } from '@material-ui/core';
 import axios from 'axios';
 import SearchList from './SearchList';
 import { DistanceMatrixService, useLoadScript } from '@react-google-maps/api';
+import { InvisibleMap } from './InvisibleMap';
+import { set } from 'date-fns';
 
 
 
@@ -65,46 +67,47 @@ const rows = [
   createData('CP10V', 'S17, Faculty of Science', 'Public', 45, [103.782244, 1.297083]),
 ];
 
-const destinationData = [
-  {lng:103.778961,lat:1.296788},
-  {lng:103.779851,lat:1.297239},
-  {lng:103.780732,lat:1.297417},
-  {lng:103.782044,lat:1.296284},
-  {lng:103.781069,lat:1.294556},
-  {lng:103.77098,lat:1.296488},
-  {lng:103.774462,lat:1.299937},
-  {lng:103.772492,lat:1.299078},
-  {lng:103.772388,lat:1.297044},
-  {lng:103.77331,lat:1.302189},
-  {lng:103.773386,lat:1.301946},
-  {lng:103.772555,lat:1.294125},
-  {lng:103.770616,lat:1.295049},
-  {lng:103.772185,lat:1.293211},
-  {lng:103.775315,lat:1.293776},
-  {lng:103.774633,lat:1.292603},
-  {lng:103.775855,lat:1.293894},
-  ]
-
-  const destinationData2 = [
-    {lng:103.776944,lat:1.293611},
-    {lng:103.776079,lat:1.291773},
-    {lng:103.77079,lat:1.295536},
-    {lng:103.771951,lat:1.296164},
-    {lng:103.780267,lat:1.291692},
-    {lng:103.781627,lat:1.292182},
-    {lng:103.774087,lat:1.303158},
-    {lng:103.773435,lat:1.303741},
-    {lng:103.77194,lat:1.304957},
-    {lng:103.778297,lat:1.296911},
-    {lng:103.777296,lat:1.297492},
-    {lng:103.77441,lat:1.300671},
-    {lng:103.7753,lat:1.299},
-    {lng:103.781555,lat:1.297461},
-    {lng:103.782244,lat:1.297083}];
-    
+const tables = [
+[['CP13',0.1,1], ['CP11',0.1,1], ['CP15',0.2,2], ['CP12',0.3,4], ['CP11B',0.3,4], ['CP14',0.5,6], ['CP16',0.6,7]],
+[['CP1/2/2A/2B', 0.1, 1], ['CP2C', 0.3,4], ['CP4', 0.5,6], ['CP5',0.5,6], ['CP3A',0.6,8], ['CP3',0.6,8], ['CP5B',0.6,8]],
+[['CP8',0.1,1], ['CP7',0.2,2], ['CP6A',0.2,2], ['CP6',0.2,3], ['CP10', 0.3,3], ['CP10V',0.3,3], ['CP6B',0.4,5]],
+[['CP9A',0.1,1], ['CP10',0.2,3], ['CP10V',0.2,3], ['CP8',0.3,4], ['CP7',0.4,5], ['CP6',0.4,5], ['CP6A',0.7,8]],
+[['CP9A',0.2,3], ['CP10V',0.2,3], ['CP10',0.3,3], ['CP8',0.4,5], ['CP7',0.4,6], ['CP10C',0.5,7], ['CP6',0.5,7]],
+[['CP1/2/2A/2B',0.2,2], ['CP18',0.3,4], ['CP16',0.3,4], ['CP14',0.4,5], ['CP17',0.4,6], ['CP2C',0.8,10], ['CP4',0.8,11]],
+[['CP12',0.1,1], ['CP11',0.2,2], ['CP12B',0.2,3], ['CP13',0.3,3], ['CP11B',0.3,4], ['CP15',0.3,4], ['CP11C',0.4,5]],
+[['SRC',0.2,3], ['CREATETower',0.3,4], ['U-Town',0.4,5], ['CP3',0.5,6], ['CP3A',0.6,8], ['CP5',1.0,13], ['CP4',1.1,14]],
+[['CP14',0.1,1], ['CP16',0.2,2], ['CP15',0.2,2], ['CP18',0.3,4], ['CP13',0.3,4], ['CP17',0.5,7], ['CP11',0.7,8]],
+[['CP15',0.1,1], ['CP13',0.3,4], ['CP14',0.4,5], ['CP16',0.4,5], ['CP12',0.6,8], ['CP12B',0.7,9], ['CP11',0.8,10]],
+[['CP15',0.1,1], ['CP14',0.2,2], ['CP16',0.3,4], ['CP13',0.4,6], ['CP18',0.4,6], ['CP12',0.7,8], ['CP12B',0.8,9]],
+[['CP12',0.1,1], ['CP12B',0.2,2], ['CP11B',0.3,3], ['CP11',0.3,4], ['CP15',0.4,5], ['CP13',0.4,6], ['CP14',0.6,8]],
+[['CP12B',0.1,1], ['CP12',0.2,2], ['CP11',0.4,4], ['CP11B',0.4,6], ['CP15',0.5,6], ['CP13',0.5,7], ['CP11C',0.5,7]],
+[['CP4',0.1,1], ['CP5',0.1,2], ['CP5B',0.2,3], ['CP3',0.3,3], ['CP3A',0.3,3], ['CP2C',0.4,7], ['CP17',0.5,7]],
+[['CP10B',0.1,2], ['CP10A',0.4,6], ['CP11C',0.6,7], ['CP11B',0.7,9], ['CP11',0.8,9], ['CP12',0.9,11], ['CP12B',1.2,15]],
+[['CP10A',0.3,4], ['CP10B',0.6,8], ['CP11C',0.9,12], ['CP11B',1.0,13], ['CP11',1.0,13], ['CP12',1.2,15], ['CP10C',1.3,16]],
+[['SRC',0.6,7], ['CREATETower',0.7,9], ['U-Town',0.8,10], ['CP3',1.0,12], ['CP3A',1.0,12], ['CP5',1.0,13], ['CP4',1.1,14]],
+[['SRC',0.7,8], ['CREATETower',0.7,9], ['U-Town',0.7,9], ['CP3',1.0,12], ['CP3A',1.0,12], ['CP5',1.0,12], ['CP4',1.1,13]],
+[['CREATETower',0.4,5], ['SRC',0.5,6], ['U-Town',0.5,6], ['CP5',0.7,9], ['CP3',0.8,10], ['CP3A',0.8,10],['CP4',0.8,10]],
+[['CREATETower',0.5,6], ['SRC',0.6,7], ['U-Town',0.7,8], ['CP5',0.8,9], ['CP3',0.9,11], ['CP3A',0.9,11],['CP4',0.9,11]],
+[['CP6B',0.1,1], ['CP6A',0.2,3], ['CP6',0.3,3], ['CP7',0.3,4], ['CP5B',0.3,4], ['CP8',0.4,5], ['CP10',0.5,6]],
+[['CP15',0.1,2], ['CP13',0.2,2], ['CP12',0.3,4], ['CP11',0.4,5], ['CP14',0.4,5], ['CP12B',0.4,6], ['CP16',0.5,6]],
+[['CP5B',0.1,1], ['CP4',0.2,3], ['CP6B',0.2,3], ['CP5',0.3,4], ['CP6A',0.4,5], ['CP6',0.5,6], ['CP3A',0.5,7]],
+[['CP5',0.1,1], ['CP4',0.3,4], ['CP5B',0.4,5], ['CP3',0.4,5], ['CP3A',0.4,5], ['U-Town',0.5,6], ['CP6B',0.7,9]],
+[['CP3',0.2,2], ['CP3A',0.2,2], ['CP5',0.3,4], ['CP4',0.3,5], ['CP2C',0.3,5], ['CP5B',0.5,7], ['U-Town',0.6,7]],
+[['CP3A',0.1,1], ['CP5',0.1,2], ['CP3',0.2,2], ['CP4',0.2,3], ['CP5B',0.3,5], ['U-Town',0.4,5], ['CP2C',0.4,6]],
+[['CP14',0.1,1], ['CP16',0.1,1], ['CP1/2/2A/2B',0.2,2], ['CP18',0.3,4], ['CP15',0.4,5], ['CP13',0.4,5], ['CP17',0.4,6]],
+[['CP5B',0.1,2],['CP6B',0.2,3],['CP4',0.3,4],['CP6A',0.3,5],['CP5',0.3,4],['CP6',0.4,5],['CP7',0.5,6]],
+[['CP12B',0.1,2],['CP12',0.2,3],['CP11',0.2,4],['CP11B',0.3,5],['CP11C',0.4,7],['CP15',0.5,8],['CP13',0.6,9]],
+[['CP5B', 0.1,1],['CP4',0.1,2],['CP5',0.2,3],['CP6B',0.3,4],['CP2C',0.4,6],['CP17',0.4,6],['CP3A', 0.5,5]],
+[['CP17',0.1,1],['CP18',0.1,1],['CP1/2/2A/2B',0.2,3],['CP16',0.3,3],['CP4',0.4,5],['CP2C',0.4,5],['CP5',0.5,6]],
+[['CP17', 0.1, 1],['CP2C',0.4,5],['CP18',0.2,2],['CP1/2/2A/2B',0.3,3],['CP16',0.3,4],['CP14',0.4,5], ['CP5B',0.4,5]],
+[['CP11C' ,0.1, 1],['CP11B', 0.1, 1],['CP11', 0.2, 2],['CP12', 0.3,4],['CP12B', 0.6, 7],['CP10B',0.6, 8],['CP15', 0.7,9]],
+[['CP6B', 0.1,1],['CP6A',0.1,1],['CP6',0.2,2],['CP7',0.2,3],['CP8',0.3,4],['CP5B',0.3,4],['CP10',0.4,5]],
+[['CREATETower',0.01,1],['SRC',0.2,3],['U-Town',0.3,4],['CP5',0.6,8],['CP4',0.7,9],['CP3',0.8,10],['CP3A',0.8,10]],
+[['SRC', 0.1, 1], ['CREATETower', 0.2, 3],['U-Town', 0.4, 5],['CP3A', 0.9, 11], ['CP5', 0.9, 11],['CP4', 0.9,11], ['CP3', 1.0, 12]],
+[['SRC', 0.4,5],['CREATETower', 0.5, 6],['U-Town', 0.5, 6],['CP5', 0.8, 10],['CP3A', 0.8, 10],['CP4', 0.8, 10],['CP3',0.9, 11]]
+];
 
 var temp = rows;
-
 
 function setLive(array){
   for(let i = 0; i < rows.length; i++){
@@ -176,7 +179,7 @@ function typeComparator(a, b,location, order) {
   }
 }
 
-function descendingComparator(a, b, orderBy, location, order) {
+function descendingComparator(a, b, orderBy, location, order,) {
   if (orderBy === "Coords") {
     return distanceComparator(a, b,location);
   }
@@ -192,10 +195,14 @@ function descendingComparator(a, b, orderBy, location, order) {
   return 0;
 }
 
-function getComparator(order, orderBy, location) {
-  return (order === 'desc' || orderBy === "Type")
-    ? (a, b) => descendingComparator(a, b, orderBy, location, order)
-    : (a, b) => -descendingComparator(a, b, orderBy, location, order);
+function getComparator(order, orderBy, location, manual) {
+  if (manual) {
+    return (a, b) => 1;
+  } else if (order === 'desc' || orderBy === "Type") {
+    return (a, b) => descendingComparator(a, b, orderBy, location, order);
+  } else {
+    return (a, b) => -descendingComparator(a, b, orderBy, location, order);
+  }
 }
 
 function stableSort(array, comparator) {
@@ -216,7 +223,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, manual } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -247,6 +254,8 @@ function EnhancedTableHead(props) {
             </TableSortLabel>
           </TableCell>
         ))}
+        {manual && (<TableCell className={classes.header} align={"center"}>Distance</TableCell>)}
+        {manual && (<TableCell className={classes.header} align={"center"}>Walking Time</TableCell>)}
       </TableRow>
     </TableHead>
   );
@@ -320,7 +329,7 @@ const EnhancedTableToolbar = (props) => {
       />
       <div style ={{width: 530}}/>
       <div className={classes.where}>
-        <SearchList selectedLocation={whenChange} finalClick={finalPlace}/>
+        <SearchList selectedLocation={selected} finalClick={finalPlace}/>
       </div>
 
     </Toolbar>
@@ -410,15 +419,10 @@ const CssTextField = withStyles({
   }
 })(TextField);
 
-const libraries = ["places"];
 
 export default function EnhancedTable() {
   const classes = useStyles();
   //const success = (position) => [position.coords.longitude, position.coords.latitude];
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyBrgo3k6ArVPdNxrWTGPQtorFPoJcZjDaQ",
-    libraries,
-  });
 
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState(navigator.geolocation ? 'Coords' : 'LotsAvailable');
@@ -431,26 +435,22 @@ export default function EnhancedTable() {
   const [search, setSearch] = React.useState("");
   const [table, setTable] = React.useState(temp);
   const [location, setLocation] = React.useState([0,0]);
-  const [finalDestination, setFinalDestination] = React.useState([103.772555, 1.29412]);
+  const [finalDestination, setFinalDestination] = React.useState(0);
   const [isFirstTime, setIsFirstTime] = React.useState(true);
-  const [origin, setOrigin] = React.useState([]);
-  const [control, setControl] = React.useState(true);
-  const [response1, setResponse1] = React.useState([]);
-  const [response2, setResponse2] = React.useState([]);
+  const [manualTableSort, setManualTableSort] = React.useState(false);
+  const [manual,setManual]= React.useState(false);
 
   useEffect(() => {
     //axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
         //{setLive(response.data.carpark); setCount(count + 1)})
         //.catch(err => console.log(err))
     if (isFirstTime) {
-      alert('if case');
       navigator.geolocation.getCurrentPosition((position) => {
         const coords = position.coords;
-        setOrigin([coords.longitude, coords.latitude]);
         setLocation([coords.longitude, coords.latitude]);
       });
       setIsFirstTime(false);
-    } else if (navigator.geolocation) {
+    } else if (navigator.geolocation && !manualTableSort) {
       const interval = setInterval(() => {
         navigator.geolocation.getCurrentPosition((position) => {
           const coords = position.coords;
@@ -463,10 +463,10 @@ export default function EnhancedTable() {
   });
 
   const handleRequestSort = (event, property) => {
-    alert('handleRequestSort');
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
+    setManualTableSort(false);
     if (nearest && property !== "Type") {
       setNearest(false);
     }
@@ -517,25 +517,37 @@ export default function EnhancedTable() {
   const filtering = (event) => {
     setSearch(event.target.value.toLowerCase());
     const tableResult = rows.filter(row => row.Location.toLowerCase().includes(event.target.value.toLowerCase()));
+    //setManual(false);
     setTable(tableResult);
   };
 
   const handleChange = (event) => {
-    alert(finalDestination[1]);
-    const res = event.target.value.split(',', 2);
-    setFinalDestination([parseFloat(res[0]), parseFloat(res[1])]);
+    //const res = event.target.value.split(',', 2);
+    //setFinalDestination([parseFloat(res[0]), parseFloat(res[1])]);
+    setFinalDestination(parseInt(event.target.value));
   };
 
   const handleSubmit = () => {
     //const tableResult = stableSort(table, getComparator(order, "Coords", finalDestination));  
-    alert('handleSubmit');
     if (!nearest) {
-      setOrderBy('Coords');
-      setOrder('desc');
+      //setOrderBy('Coords');
+      //setOrder('desc');
       setNearest(true);
     }
-    
-    setLocation(finalDestination);
+    const tableContent = tables[finalDestination];
+    console.log(tableContent);
+    const tableResult = tableContent.map(content => {
+      for (let i = 0; i < rows.length; i++) {
+        if (content[0] === rows[i].Carpark) {
+          return rows[i];
+        }
+      }
+    });
+    setManualTableSort(true);
+    //setManual(true);
+    setLocation(0);
+    setTable(tableResult);
+
   }
 
   const handleSort = (event) => {
@@ -581,9 +593,10 @@ export default function EnhancedTable() {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              manual={manualTableSort}
             />
             <TableBody>
-              {stableSort(table, getComparator(order, orderBy, location))
+              {stableSort(table, getComparator(order, orderBy, location, manualTableSort))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.Carpark);
@@ -603,10 +616,14 @@ export default function EnhancedTable() {
                       <TableCell className={classes.content} component="th" id={labelId} scope="row" padding="none" align="center">
                         <a href={row.link} target="_blank"><b>{row.Carpark}</b></a>
                       </TableCell>
-                      <TableCell className={classes.content} align="center"><b>{row.Location}</b></TableCell>
+                      <TableCell className={classes.content} align="center">
+                        <b>{row.Location}</b>
+                      </TableCell>
                       <TableCell className={classes.content} align="center"><b>{row.Type}</b></TableCell>                
                       <TableCell className={row.LotsAvailable < 50 ? classes.lowContent : classes.highContent} align= "center">
                         <b>{row.LotsAvailable}</b></TableCell>
+                      {manualTableSort && (<TableCell className={classes.content} align="center"><b>{tables[finalDestination][index][1]} km</b></TableCell>)}
+                      {manualTableSort && (<TableCell className={classes.content} align="center"><b>{tables[finalDestination][index][2]} {tables[finalDestination][index][2] === 1 ? 'min' : 'mins'}</b></TableCell>)}
                     </TableRow>
                   );
                 })}
@@ -617,6 +634,7 @@ export default function EnhancedTable() {
               )}
             </TableBody>
           </Table>
+          <InvisibleMap />
         </TableContainer>
         <TablePagination
           className={classes.content}
