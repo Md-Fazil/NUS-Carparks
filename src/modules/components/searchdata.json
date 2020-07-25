@@ -1,0 +1,27 @@
+[
+    {
+        "location": "School of Computing",
+        "latitude": "1.2948582",
+        "longitude": "103.7714891"
+    },
+    {
+        "location": "Faculty of Engineering",
+        "latitude": "1.3000924",
+        "longitude": "103.7682901"
+    },
+    {
+        "location": "Faculty of Science",
+        "latitude": "1.3000924",
+        "longitude": "103.7682901"
+    },
+    {
+        "location": "U-Town",
+        "latitude": "1.3054913",
+        "longitude": "103.7708709"
+    },
+    {
+        "location": "School of Business",
+        "latitude": "1.3000924",
+        "longitude": "103.7682901"
+    }
+]

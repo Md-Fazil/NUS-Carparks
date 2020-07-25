@@ -20,6 +20,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
+import SearchList from './SearchList';
 
 
 
@@ -63,8 +64,47 @@ const rows = [
   createData('CP10V', 'S17, Faculty of Science', 'Public', 45, [103.782244, 1.297083]),
 ];
 
-var temp = rows;
+const tables = [
+[['CP13',0.1,1], ['CP11',0.1,1], ['CP15',0.2,2], ['CP12',0.3,4], ['CP11B',0.3,4], ['CP14',0.5,6], ['CP16',0.6,7]],
+[['CP1/2/2A/2B', 0.1, 1], ['CP2C', 0.3,4], ['CP4', 0.5,6], ['CP5',0.5,6], ['CP3A',0.6,8], ['CP3',0.6,8], ['CP5B',0.6,8]],
+[['CP8',0.1,1], ['CP7',0.2,2], ['CP6A',0.2,2], ['CP6',0.2,3], ['CP10', 0.3,3], ['CP10V',0.3,3], ['CP6B',0.4,5]],
+[['CP9A',0.1,1], ['CP10',0.2,3], ['CP10V',0.2,3], ['CP8',0.3,4], ['CP7',0.4,5], ['CP6',0.4,5], ['CP6A',0.7,8]],
+[['CP9A',0.2,3], ['CP10V',0.2,3], ['CP10',0.3,3], ['CP8',0.4,5], ['CP7',0.4,6], ['CP10C',0.5,7], ['CP6',0.5,7]],
+[['CP1/2/2A/2B',0.2,2], ['CP18',0.3,4], ['CP16',0.3,4], ['CP14',0.4,5], ['CP17',0.4,6], ['CP2C',0.8,10], ['CP4',0.8,11]],
+[['CP12',0.1,1], ['CP11',0.2,2], ['CP12B',0.2,3], ['CP13',0.3,3], ['CP11B',0.3,4], ['CP15',0.3,4], ['CP11C',0.4,5]],
+[['SRC',0.2,3], ['CREATETower',0.3,4], ['U-Town',0.4,5], ['CP3',0.5,6], ['CP3A',0.6,8], ['CP5',1.0,13], ['CP4',1.1,14]],
+[['CP14',0.1,1], ['CP16',0.2,2], ['CP15',0.2,2], ['CP18',0.3,4], ['CP13',0.3,4], ['CP17',0.5,7], ['CP11',0.7,8]],
+[['CP15',0.1,1], ['CP13',0.3,4], ['CP14',0.4,5], ['CP16',0.4,5], ['CP12',0.6,8], ['CP12B',0.7,9], ['CP11',0.8,10]],
+[['CP15',0.1,1], ['CP14',0.2,2], ['CP16',0.3,4], ['CP13',0.4,6], ['CP18',0.4,6], ['CP12',0.7,8], ['CP12B',0.8,9]],
+[['CP12',0.1,1], ['CP12B',0.2,2], ['CP11B',0.3,3], ['CP11',0.3,4], ['CP15',0.4,5], ['CP13',0.4,6], ['CP14',0.6,8]],
+[['CP12B',0.1,1], ['CP12',0.2,2], ['CP11',0.4,4], ['CP11B',0.4,6], ['CP15',0.5,6], ['CP13',0.5,7], ['CP11C',0.5,7]],
+[['CP4',0.1,1], ['CP5',0.1,2], ['CP5B',0.2,3], ['CP3',0.3,3], ['CP3A',0.3,3], ['CP2C',0.4,7], ['CP17',0.5,7]],
+[['CP10B',0.1,2], ['CP10A',0.4,6], ['CP11C',0.6,7], ['CP11B',0.7,9], ['CP11',0.8,9], ['CP12',0.9,11], ['CP12B',1.2,15]],
+[['CP10A',0.3,4], ['CP10B',0.6,8], ['CP11C',0.9,12], ['CP11B',1.0,13], ['CP11',1.0,13], ['CP12',1.2,15], ['CP10C',1.3,16]],
+[['SRC',0.6,7], ['CREATETower',0.7,9], ['U-Town',0.8,10], ['CP3',1.0,12], ['CP3A',1.0,12], ['CP5',1.0,13], ['CP4',1.1,14]],
+[['SRC',0.7,8], ['CREATETower',0.7,9], ['U-Town',0.7,9], ['CP3',1.0,12], ['CP3A',1.0,12], ['CP5',1.0,12], ['CP4',1.1,13]],
+[['CREATETower',0.4,5], ['SRC',0.5,6], ['U-Town',0.5,6], ['CP5',0.7,9], ['CP3',0.8,10], ['CP3A',0.8,10],['CP4',0.8,10]],
+[['CREATETower',0.5,6], ['SRC',0.6,7], ['U-Town',0.7,8], ['CP5',0.8,9], ['CP3',0.9,11], ['CP3A',0.9,11],['CP4',0.9,11]],
+[['CP6B',0.1,1], ['CP6A',0.2,3], ['CP6',0.3,3], ['CP7',0.3,4], ['CP5B',0.3,4], ['CP8',0.4,5], ['CP10',0.5,6]],
+[['CP15',0.1,2], ['CP13',0.2,2], ['CP12',0.3,4], ['CP11',0.4,5], ['CP14',0.4,5], ['CP12B',0.4,6], ['CP16',0.5,6]],
+[['CP5B',0.1,1], ['CP4',0.2,3], ['CP6B',0.2,3], ['CP5',0.3,4], ['CP6A',0.4,5], ['CP6',0.5,6], ['CP3A',0.5,7]],
+[['CP5',0.1,1], ['CP4',0.3,4], ['CP5B',0.4,5], ['CP3',0.4,5], ['CP3A',0.4,5], ['U-Town',0.5,6], ['CP6B',0.7,9]],
+[['CP3',0.2,2], ['CP3A',0.2,2], ['CP5',0.3,4], ['CP4',0.3,5], ['CP2C',0.3,5], ['CP5B',0.5,7], ['U-Town',0.6,7]],
+[['CP3A',0.1,1], ['CP5',0.1,2], ['CP3',0.2,2], ['CP4',0.2,3], ['CP5B',0.3,5], ['U-Town',0.4,5], ['CP2C',0.4,6]],
+[['CP14',0.1,1], ['CP16',0.1,1], ['CP1/2/2A/2B',0.2,2], ['CP18',0.3,4], ['CP15',0.4,5], ['CP13',0.4,5], ['CP17',0.4,6]],
+[['CP5B',0.1,2],['CP6B',0.2,3],['CP4',0.3,4],['CP6A',0.3,5],['CP5',0.3,4],['CP6',0.4,5],['CP7',0.5,6]],
+[['CP12B',0.1,2],['CP12',0.2,3],['CP11',0.2,4],['CP11B',0.3,5],['CP11C',0.4,7],['CP15',0.5,8],['CP13',0.6,9]],
+[['CP5B', 0.1,1],['CP4',0.1,2],['CP5',0.2,3],['CP6B',0.3,4],['CP2C',0.4,6],['CP17',0.4,6],['CP3A', 0.5,5]],
+[['CP17',0.1,1],['CP18',0.1,1],['CP1/2/2A/2B',0.2,3],['CP16',0.3,3],['CP4',0.4,5],['CP2C',0.4,5],['CP5',0.5,6]],
+[['CP17', 0.1, 1],['CP2C',0.4,5],['CP18',0.2,2],['CP1/2/2A/2B',0.3,3],['CP16',0.3,4],['CP14',0.4,5], ['CP5B',0.4,5]],
+[['CP11C' ,0.1, 1],['CP11B', 0.1, 1],['CP11', 0.2, 2],['CP12', 0.3,4],['CP12B', 0.6, 7],['CP10B',0.6, 8],['CP15', 0.7,9]],
+[['CP6B', 0.1,1],['CP6A',0.1,1],['CP6',0.2,2],['CP7',0.2,3],['CP8',0.3,4],['CP5B',0.3,4],['CP10',0.4,5]],
+[['CREATETower',0.01,1],['SRC',0.2,3],['U-Town',0.3,4],['CP5',0.6,8],['CP4',0.7,9],['CP3',0.8,10],['CP3A',0.8,10]],
+[['SRC', 0.1, 1], ['CREATETower', 0.2, 3],['U-Town', 0.4, 5],['CP3A', 0.9, 11], ['CP5', 0.9, 11],['CP4', 0.9,11], ['CP3', 1.0, 12]],
+[['SRC', 0.4,5],['CREATETower', 0.5, 6],['U-Town', 0.5, 6],['CP5', 0.8, 10],['CP3A', 0.8, 10],['CP4', 0.8, 10],['CP3',0.9, 11]]
+];
 
+var temp = rows;
 
 function setLive(array){
   for(let i = 0; i < rows.length; i++){
@@ -102,9 +142,46 @@ function distanceComparator(a, b, location) {
   return 0;
 }
 
-function descendingComparator(a, b, orderBy, location) {
+function typeComparator(a, b,location, order) {
+  const locationToA = distance(a.Coords[1], a.Coords[0], location[1], location[0]);
+  const locationToB = distance(b.Coords[1], b.Coords[0], location[1], location[0]);
+  if (order === 'desc') {
+    if (b.Type < a.Type) {
+      return -1;
+    }
+    if (b.Type > a.Type) {
+      return 1;
+    }
+    if (locationToB < locationToA) {
+      return 1;
+    }
+    if (locationToB > locationToA) {
+      return -1;
+    }
+    return 0;
+  } else {
+    if (b.Type < a.Type) {
+      return 1;
+    }
+    if (b.Type > a.Type) {
+      return -1;
+    }
+    if (locationToB < locationToA) {
+      return 1;
+    }
+    if (locationToB > locationToA) {
+      return -1;
+    }
+    return 0;
+  }
+}
+
+function descendingComparator(a, b, orderBy, location, order,) {
   if (orderBy === "Coords") {
-    return distanceComparator(a, b, location);
+    return distanceComparator(a, b,location);
+  }
+  if (orderBy === "Type") {
+    return typeComparator(a, b, location, order);
   }
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -115,10 +192,14 @@ function descendingComparator(a, b, orderBy, location) {
   return 0;
 }
 
-function getComparator(order, orderBy, location) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy, location)
-    : (a, b) => -descendingComparator(a, b, orderBy, location);
+function getComparator(order, orderBy, location, manual) {
+  if (manual) {
+    return (a, b) => 1;
+  } else if (order === 'desc' || orderBy === "Type") {
+    return (a, b) => descendingComparator(a, b, orderBy, location, order);
+  } else {
+    return (a, b) => -descendingComparator(a, b, orderBy, location, order);
+  }
 }
 
 function stableSort(array, comparator) {
@@ -139,7 +220,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, manual } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -170,6 +251,8 @@ function EnhancedTableHead(props) {
             </TableSortLabel>
           </TableCell>
         ))}
+        {manual && (<TableCell className={classes.header} align={"center"}>Distance</TableCell>)}
+        {manual && (<TableCell className={classes.header} align={"center"}>Walking Time</TableCell>)}
       </TableRow>
     </TableHead>
   );
@@ -231,39 +314,20 @@ const EnhancedTableToolbar = (props) => {
   const { numSelected, whenChange, finalPlace, selected} = props;
 
   return (
-    <Toolbar
-      className={classes.root}
-    >
-    
+    <Toolbar className={classes.root}>
       <CssTextField
         inputProps={{className: classes.input}}
         InputLabelProps={{className: classes.input}}
         label="Search Carpark Location"
         variant="outlined"
         id="custom-css-outlined-input"
-        style = {{width: 400}}
+        style = {{width: 400}} 
         onChange = {whenChange}
       />
-      <div style ={{width: 450}}/>
-      {<div className={classes.where}>
-        <Form onSubmit={finalPlace} style = {{display: "flex"}}>
-          <Form.Group controlId="exampleForm.ControlSelect1" className = {classes.test}>
-            <Form.Label><b>Where to?</b></Form.Label>
-            <div style ={{width: 10}}/>
-            <Form.Control as="select" onChange={selected}>
-              <option>School of Computing</option>
-              <option value={[103.7682901, 1.3000924]}>Faculty of Engineering</option>
-              <option>Faculty of Science</option>
-              <option>U-town</option>
-              <option>School of Business</option>
-            </Form.Control>
-          </Form.Group>
-          <div style = {{width: 15}}/>
-          <Button variant="primary" type="submit">
-            Go!
-          </Button>
-        </Form>
-      </div>}
+      <div style ={{width: 530}}/>
+      <div className={classes.where}>
+        <SearchList selectedLocation={selected} finalClick={finalPlace}/>
+      </div>
 
     </Toolbar>
   );
@@ -352,6 +416,7 @@ const CssTextField = withStyles({
   }
 })(TextField);
 
+
 export default function EnhancedTable() {
   const classes = useStyles();
   //const success = (position) => [position.coords.longitude, position.coords.latitude];
@@ -361,37 +426,46 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
-  const [nearest, setNearest] = React.useState(false);
+  const [nearest, setNearest] = React.useState(navigator.geolocation ? true : false);
   const [rowsPerPage, setRowsPerPage] = React.useState(7);
   const [count, setCount] = React.useState(0);
   const [search, setSearch] = React.useState("");
   const [table, setTable] = React.useState(temp);
-  const [location, setLocation] = React.useState([0, 0]);
-  const [finalDestination, setFinalDestination] = React.useState([0, 0]);
-  const [isFinalSelected, setFinalSelected] = React.useState(false);
+  const [location, setLocation] = React.useState([0,0]);
+  const [finalDestination, setFinalDestination] = React.useState(0);
+  const [isFirstTime, setIsFirstTime] = React.useState(true);
+  const [manualTableSort, setManualTableSort] = React.useState(false);
+  const [manual,setManual]= React.useState(false);
 
   useEffect(() => {
     //axios.get('https://cors-anywhere.herokuapp.com/https://nusparking.ramky.com.sg/NpasRest/service/Carpark').then(response => 
         //{setLive(response.data.carpark); setCount(count + 1)})
         //.catch(err => console.log(err))
-
-        if(isFinalSelected){
-
-        }
-        if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
+    if (isFirstTime) {
+      navigator.geolocation.getCurrentPosition((position) => {
         const coords = position.coords;
         setLocation([coords.longitude, coords.latitude]);
-      })
+      });
+      setIsFirstTime(false);
+    } else if (navigator.geolocation && !manualTableSort) {
+      const interval = setInterval(() => {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const coords = position.coords;
+          setLocation([coords.longitude, coords.latitude]);
+        })
+      }, 15000);
+      return () => clearInterval(interval);
     }
  
   });
 
   const handleRequestSort = (event, property) => {
+    alert('handleRequestSort');
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
-    if (nearest) {
+    setManualTableSort(false);
+    if (nearest && property !== "Type") {
       setNearest(false);
     }
   };
@@ -441,27 +515,51 @@ export default function EnhancedTable() {
   const filtering = (event) => {
     setSearch(event.target.value.toLowerCase());
     const tableResult = rows.filter(row => row.Location.toLowerCase().includes(event.target.value.toLowerCase()));
+    //setManual(false);
     setTable(tableResult);
   };
 
   const handleChange = (event) => {
-    setFinalDestination(event.target.value);
+    //const res = event.target.value.split(',', 2);
+    //setFinalDestination([parseFloat(res[0]), parseFloat(res[1])]);
+    setFinalDestination(parseInt(event.target.value));
   };
 
-  const handleSubmit = (event) => {
-    const tableResult = stableSort(table, getComparator(order, orderBy, finalDestination));
-    alert(finalDestination);
+  const handleSubmit = () => {
+    //const tableResult = stableSort(table, getComparator(order, "Coords", finalDestination));  
+    if (!nearest) {
+      //setOrderBy('Coords');
+      //setOrder('desc');
+      setNearest(true);
+    }
+    const tableContent = tables[finalDestination];
+    console.log(tableContent);
+    const tableResult = tableContent.map(content => {
+      for (let i = 0; i < rows.length; i++) {
+        if (content[0] === rows[i].Carpark) {
+          return rows[i];
+        }
+      }
+    });
+    setManualTableSort(true);
+    //setManual(true);
+    setLocation(0);
     setTable(tableResult);
-    setFinalSelected(true);
+
   }
 
   const handleSort = (event) => {
-    if (event.target.checked) {
-      setOrder('desc');
+    alert('handleSort')
+    if (event.target.checked && orderBy !== "Type") {
+      setOrder("desc");
       setOrderBy("Coords");
-    } else {
-      setOrderBy("LotsAvailable");
+    } 
+    if (event.target.checked && orderBy === "Type") {
+      setOrderBy("Type");
     }
+    if (!event.target.checked) {
+      setOrderBy("LotsAvailable");
+    } 
     setNearest(event.target.checked);
   }
 
@@ -493,9 +591,10 @@ export default function EnhancedTable() {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              manual={manualTableSort}
             />
             <TableBody>
-              {stableSort(table, getComparator(order, orderBy, location))
+              {stableSort(table, getComparator(order, orderBy, location, manualTableSort))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.Carpark);
@@ -515,10 +614,14 @@ export default function EnhancedTable() {
                       <TableCell className={classes.content} component="th" id={labelId} scope="row" padding="none" align="center">
                         <a href={row.link} target="_blank"><b>{row.Carpark}</b></a>
                       </TableCell>
-                      <TableCell className={classes.content} align="center"><b>{row.Location}</b></TableCell>
+                      <TableCell className={classes.content} align="center">
+                        <b>{row.Location}</b>
+                      </TableCell>
                       <TableCell className={classes.content} align="center"><b>{row.Type}</b></TableCell>                
                       <TableCell className={row.LotsAvailable < 50 ? classes.lowContent : classes.highContent} align= "center">
                         <b>{row.LotsAvailable}</b></TableCell>
+                      {manualTableSort && (<TableCell className={classes.content} align="center"><b>{tables[finalDestination][index][1]} km</b></TableCell>)}
+                      {manualTableSort && (<TableCell className={classes.content} align="center"><b>{tables[finalDestination][index][2]} {tables[finalDestination][index][2] === 1 ? 'min' : 'mins'}</b></TableCell>)}
                     </TableRow>
                   );
                 })}
@@ -529,6 +632,7 @@ export default function EnhancedTable() {
               )}
             </TableBody>
           </Table>
+          <InvisibleMap />
         </TableContainer>
         <TablePagination
           className={classes.content}

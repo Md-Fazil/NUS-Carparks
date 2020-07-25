@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LocalParkingOutlinedIcon from '@material-ui/icons/LocalParkingOutlined';
-import DirectionsOutlinedIcon from '@material-ui/icons/DirectionsOutlined';
 import DirectionsCarOutlinedIcon from '@material-ui/icons/DirectionsCarOutlined';
 
 
@@ -102,7 +101,7 @@ const destinationData2 = [
 const libraries = ["places"];
 
 const mapContainerStyle = {
- height: "500px",
+ height: "550px",
  width: "100%",
 
 };
@@ -159,14 +158,33 @@ const durationsCallback = (response, status) => {
   }
 }
 
+const onDirectionsClose = () => {
+  setSelected({});
+  setDurationObtained(false);
+  setResponse(null);
+  panToCarpark(center);
+  setDirection(false);
+  setDestinationLat(0);
+  setDestinationLng(0);
+  isDestination(false);
+  setDuration(0);
+  setDistance(0);  
+}
+
+
 const onInfoWindowClose = () => {
   setSelected({});
   setDurationObtained(false);
   setResponse(null);
-  panTo(center);
   setDirection(false);
-  
+  setDestinationLat(0);
+  setDestinationLng(0);
+  isDestination(false);
+  setDuration(0);
+  setDistance(0);  
 }
+
+
 const success = position => {
   const currentPosition = {
     lat: position.coords.latitude,
@@ -195,7 +213,16 @@ const onSelect = item => {
   setDestinationLng(item.longitude); 
   isDestination(true);
   setControl(true);
-  Geocode.fromLatLng(addressLat, addressLng).then(
+  /*Geocode.fromLatLng(addressLat, addressLng).then(
+    response => {
+      const address = response.results[0].formatted_address;
+      setAddress(address);
+    },
+    error => {
+      console.error(error);
+    }
+  );*/
+  Geocode.fromLatLng(1.312883, 103.768835).then(
     response => {
       const address = response.results[0].formatted_address;
       setAddress(address);
@@ -216,7 +243,22 @@ const onMapLoad = React.useCallback((map) => {
 
 const panTo = React.useCallback(({ lat, lng }) => {
   mapRef.current.panTo({ lat, lng });
-  mapRef.current.setZoom(15);
+//  mapRef.current.setZoom(15);
+}, []);
+
+const panToSearch = React.useCallback(({ lat, lng }) => {
+  mapRef.current.panTo({ lat, lng });
+  mapRef.current.setZoom(18);
+}, []);
+
+const panToCarpark = React.useCallback(({ lat, lng }) => {
+  mapRef.current.panTo({ lat, lng });
+  mapRef.current.setZoom(15.5);
+}, []);
+
+const panToLocation = React.useCallback(({ lat, lng }) => {
+  mapRef.current.panTo({ lat, lng });
+  mapRef.current.setZoom(16);
 }, []);
 
 if (loadError) return "Error";
@@ -227,22 +269,25 @@ if (!isLoaded) return "Loading...";
     <div>
       <div style = {{display: 'flex', flexDirection : 'row', position : "absolute", width: '95%', }}>
      
-      <div style ={{width: '250px'}}/>
+      <div style ={{width: '300px'}}/>
      
-      <Search panTo={panTo} />
+      <Search panTo={panToSearch} />
       
       <div>
-      <Button className = {classes.button} color = "blue" variant = "contained" startIcon = {<LocationOn/>} onClick = {() => {panTo(currentPosition)}}>
+      <Button className = {classes.button} color = "default" variant = "contained" startIcon = {<LocationOn/>} 
+      //onClick = {() => {panToLocation(currentPosition)}}
+      onClick = {() => {panToLocation({lat: 1.312883, lng: 103.768835})}}
+      >
         Your Location
       </Button>
-      <Button className = {classes.button} color = "blue" variant = "contained" startIcon = {<LocalParkingOutlinedIcon/>} onClick = {() =>{panTo(center)}} >Carparks</Button>
+      <Button className = {classes.button} color = "default" variant = "contained" startIcon = {<LocalParkingOutlinedIcon/>} onClick = {() =>{panToCarpark(center)}} >Carparks</Button>
       {direction && (
         <Button         
         variant="contained"
         color="secondary"
         className={classes.button}
         startIcon={<DeleteIcon />} 
-        onClick = {onInfoWindowClose}>
+        onClick = {onDirectionsClose}>
         Clear Directions
         </Button>
       )}
@@ -281,40 +326,44 @@ if (!isLoaded) return "Loading...";
               }}
               clickable={true}
               onCloseClick={onInfoWindowClose}
-              style = {{opacity: 0.8}}
+              style = {{}}
             >
               <div>
-              <div>
-              <h3> {selected.name}, {selected.caption} </h3>
+              <h3>{selected.name}, {selected.caption} </h3>
               Current Location: <strong>{address}</strong><br/>
               Distance: <strong>{distance}</strong><br/> Estimated Travel Time: <strong>{duration}</strong> 
-             <div style = {{ display: "flex", flexDirection: "row"}}>
-             <div style = {{width: "60px"}}/> 
+              <div style = {{ display: "flex", flexDirection: "row"}}>
+              <div style = {{width: "60px"}}/> 
               <Button className = {classes.button}
               variant = "contained" 
-              color = "primary" 
+              color = "secondary" 
               startIcon = {<DirectionsCarOutlinedIcon/>} 
               onClick = {onDirectionsClick}>
               Get Directions
               </Button>
               </div>
               </div>
-              
-              </div>
+          
+             
             </InfoWindow>
             )
          }
 
           {isLocationObtained && !direction &&
             ( 
-              <Marker position={currentPosition}>Current Location</Marker>
+              <Marker 
+              //position={currentPosition}
+              position = {{lat: 1.312883, lng: 103.768835}}
+              >
+                Current Location</Marker>
             ) 
           } 
 
-          {!durationObtained && destination && isLocationObtained && control && (<DistanceMatrixService
+          {!durationObtained && destination && isLocationObtained && control && destinationLat != 0 && destinationLng != 0 && (<DistanceMatrixService
             options={{
               destinations: [{lat: destinationLat, lng: destinationLng}],
-              origins: [currentPosition],
+            //origins: [currentPosition],
+              origins:[{lat: 1.312883, lng: 103.768835}], 
               travelMode: "DRIVING",
             }}
             callback = {durationsCallback}
@@ -323,7 +372,8 @@ if (!isLoaded) return "Loading...";
           {isLocationObtained && destination && control && direction &&(<DirectionsService
            options = {{
             destination: {lng:destinationLng, lat:destinationLat},
-            origin: currentPosition,
+        //  origin: currentPosition,  
+            origin:{lat: 1.312883, lng: 103.768835},
             travelMode: "DRIVING"
           }}
           callback = {(response, status) => {setResponse(response); setControl(false);}}
@@ -368,7 +418,7 @@ function Locate({ panTo }) {
 }
 
 
-function Search({ panTo }) {
+function Search({ panTo}) {
   const {
     ready,
     value,
@@ -409,7 +459,7 @@ function Search({ panTo }) {
           onChange={handleInput}
           disabled={!ready}
           placeholder="Search your location"
-          style ={{width: "400px", height: "30px", margin:"8px"}}
+          style ={{width: "400px", height: "37px", margin:"8px"}}
         />
         <ComboboxPopover style ={{opacity: 0.8, backgroundColor: 'white'}}>
           <ComboboxList >
