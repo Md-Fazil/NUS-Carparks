@@ -21,9 +21,6 @@ import Button from 'react-bootstrap/Button'
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
 import SearchList from './SearchList';
-import { DistanceMatrixService, useLoadScript } from '@react-google-maps/api';
-import { InvisibleMap } from './InvisibleMap';
-import { set } from 'date-fns';
 
 
 
@@ -463,6 +460,7 @@ export default function EnhancedTable() {
   });
 
   const handleRequestSort = (event, property) => {
+    alert('handleRequestSort');
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
