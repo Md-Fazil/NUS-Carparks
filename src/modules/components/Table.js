@@ -324,7 +324,7 @@ const EnhancedTableToolbar = (props) => {
         style = {{width: 400}} 
         onChange = {whenChange}
       />
-      <div style ={{width: 530}}/>
+      <div style ={{width: 500}}/>
       <div className={classes.where}>
         <SearchList selectedLocation={selected} finalClick={finalPlace}/>
       </div>
@@ -460,7 +460,7 @@ export default function EnhancedTable() {
   });
 
   const handleRequestSort = (event, property) => {
-    alert('handleRequestSort');
+    //alert('handleRequestSort');
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
@@ -632,7 +632,6 @@ export default function EnhancedTable() {
               )}
             </TableBody>
           </Table>
-          <InvisibleMap />
         </TableContainer>
         <TablePagination
           className={classes.content}
