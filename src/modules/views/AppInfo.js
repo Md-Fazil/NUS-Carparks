@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import Button from '../components/Button';
 import Typography from '../components/Typography';
 import Info from '../components/ParkingInfo'
 
@@ -55,15 +52,12 @@ const styles = (theme) => ({
   },
 });
 
-function ProductHowItWorks(props) {
+function AppInfo(props) {
   const { classes } = props;
 
   return (
     <section className={classes.root}>
-      
-
         <div className = {classes.item} id = 'Info'>
-          
         <Typography variant="h4" marked="center" className={classes.title} component="h2">
           Parking Info
         </Typography>
@@ -76,8 +70,8 @@ function ProductHowItWorks(props) {
   );
 }
 
-ProductHowItWorks.propTypes = {
+AppInfo.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProductHowItWorks);
+export default withStyles(styles)(AppInfo);

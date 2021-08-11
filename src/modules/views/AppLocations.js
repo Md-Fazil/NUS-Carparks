@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Container from '@material-ui/core/Container';
 import Typography from '../components/Typography';
-import GMap from '../components/GMap';
 import App from '../components/ApiMap';
 
 const styles = (theme) => ({
@@ -96,30 +94,22 @@ const styles = (theme) => ({
   
 });
 
-function ProductCategories(props) {
+function AppLocations(props) {
   const { classes } = props;
-
-  
-
   return (
     <Container className={classes.root} component="section" >
       <div className = {classes.test} id="Locations"/>
-      <Typography variant="h4" marked="center" align="center" component="h2">
-        Locations
-      </Typography>
-    
-    <div className = {classes.test}/>
+        <Typography variant="h4" marked="center" align="center" component="h2">
+          Locations
+        </Typography>
+      <div/>
     <App/>
-
-    
-     
-    
     </Container>
   );
 }
 
-ProductCategories.propTypes = {
+AppLocations.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProductCategories);
+export default withStyles(styles)(AppLocations);

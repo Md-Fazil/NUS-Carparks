@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '../components/Table'
-import ProductHeroLayout from './ProductHeroLayout';
+import AppHomeLayout from './AppHomeLayout';
 import backgroundi from './images/NUS5.jpg'
 
 const backgroundImage =
@@ -32,22 +32,22 @@ const styles = (theme) => ({
   },
 });
 
-function ProductHero(props) {
+function AppHome(props) {
   const { classes } = props;
 
   return (
     <div id = "Availability" style = {{height: 700}}>
-    <ProductHeroLayout backgroundClassName={classes.background}>
+    <AppHomeLayout backgroundClassName={classes.background}>
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src={backgroundImage} alt="increase priority" />
       <Table />
-    </ ProductHeroLayout>
+    </AppHomeLayout>
     </div>
   );
 }
 
-ProductHero.propTypes = {
+AppHome.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProductHero);
+export default withStyles(styles)(AppHome);

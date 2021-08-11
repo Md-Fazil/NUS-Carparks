@@ -15,8 +15,6 @@ const styles = (theme) => ({
       minHeight: 500,
       maxHeight: 1300,
     },
-  
-    
   },
   container: {
     marginTop: theme.spacing(2),
@@ -51,7 +49,7 @@ const styles = (theme) => ({
   },
 });
 
-function ProductHeroLayout(props) {
+function AppHomeLayout(props) {
   const { backgroundClassName, children, classes } = props;
 
   return (
@@ -65,10 +63,10 @@ function ProductHeroLayout(props) {
   );
 }
 
-ProductHeroLayout.propTypes = {
+AppHomeLayout.propTypes = {
   backgroundClassName: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProductHeroLayout);
+export default withStyles(styles)(AppHomeLayout);
